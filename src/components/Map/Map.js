@@ -23,8 +23,16 @@ function useMap() {
       <InfoWindow
         position={{lat: selectedMeter.fields.geom.coordinates[1], lng: selectedMeter.fields.geom.coordinates[0]}}
         onCloseClick={() => {setSelectedMeter(null)}}
+        // icon={{
+        //   url: "../../../public/circle.svg",
+        //   scaledSize: new.target.google.maps.Size(25,25)
+        // }}
         >
-        <div>deets</div>
+        <div>
+          <h3><b>Meter Information</b></h3>
+          <h4>PayByPhone : {selectedMeter.fields.pay_phone}</h4>
+          Rates: Mon-Fri 9:00 AM - 6:00 PM - {selectedMeter.fields.r_mf_9a_6p} ({selectedMeter.fields.t_mf_9a_6p})
+        </div>
       </InfoWindow>
     )} 
     </GoogleMap>
