@@ -1,24 +1,37 @@
-import React, { Component } from "react";
-import { GoogleMap, withScriptjs, withGoogleMap, Marker } from "react-google-maps";
+import React, { Component, useState } from "react";
+import { GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow } from "react-google-maps";
 import * as meterData from "../../data/parking-meters1.json";
 import "./Map.css";
 
-function map() {
-  console.log('meterData :', meterData);
+function useMap() {
+  const [selectedMeter, setSelectedMeter] = useState(null)
+  
   return (
     <GoogleMap defaultZoom={10} defaultCenter={{ lat: 49.2827, lng: -123.1207 }}> 
       {meterData.data.map(meter => (
         <Marker 
           key={meter.recordid} 
           position={{lat: meter.fields.geom.coordinates[1], lng: meter.fields.geom.coordinates[0]}}
-          />
+          onClick={() => {
+            setSelectedMeter(meter);
+          }}/>
       )
+    )}
+
+    {/* shows info window about meter. onCloseClick allows you to close the info window and open another one, reseting state */}
+    {selectedMeter && (
+      <InfoWindow
+        position={{lat: selectedMeter.fields.geom.coordinates[1], lng: selectedMeter.fields.geom.coordinates[0]}}
+        onCloseClick={() => {setSelectedMeter(null)}}
+        >
+        <div>deets</div>
+      </InfoWindow>
     )} 
     </GoogleMap>
   );
 }
 
-const WrappedMap = withScriptjs(withGoogleMap(map));
+const WrappedMap = withScriptjs(withGoogleMap(useMap));
 class Map extends Component {
   render() {
     return (
