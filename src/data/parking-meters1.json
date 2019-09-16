@@ -1,0 +1,36 @@
+{
+  "data": [
+    {
+      "datasetid": "parking-meters",
+      "recordid": "44c7814b22a2265cc38fc8caf2fa1fdee7a6580d",
+      "fields": {
+        "r_mf_6p_10": "$2.00",
+        "t_su_6p_10": "4 Hr",
+        "t_su_9a_6p": "2 Hr",
+        "creditcard": "No",
+        "r_sa_9a_6p": "$5.00",
+        "r_mf_9a_6p": "$5.00",
+        "timeineffe": "METER IN EFFECT: 9:00 AM TO 10:00 PM",
+        "r_su_6p_10": "$2.00",
+        "pay_phone": "63558",
+        "t_sa_6p_10": "4 Hr",
+        "t_mf_6p_10": "4 Hr",
+        "r_sa_6p_10": "$2.00",
+        "geom": {
+          "type": "Point",
+          "coordinates": [
+            -123.11138317453131,
+            49.2831913809166
+          ]
+        },
+        "meterid": "580407",
+        "t_mf_9a_6p": "2 Hr",
+        "t_sa_9a_6p": "2 Hr",
+        "meterhead": "Twin",
+        "r_su_9a_6p": "$5.00",
+        "geo_local_area": "Downtown"
+      },
+      "record_timestamp": "2019-07-22T04:01:15.344-07:00"
+    }
+  ]
+}
