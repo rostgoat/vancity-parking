@@ -49,7 +49,7 @@ class Map extends Component {
     return (
       <div className="map">
         <WrappedMap
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBlh-6hh0jO_I2c7FWR-vNzFsDqebeaL9I`}
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBlh-6hh0jO_I2c7FWR-vNzFsDqebeaL9`}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `100vh` }} />}
           mapElement={<div style={{ height: `100%` }} />}
