@@ -16,32 +16,37 @@
     transition: all 0.4s 0.2s;
     box-shadow: 0 1.5rem 4rem rgba(#000, 0.35);
   }
-
-  &-form {
-    width: 80%;
+  
+  &-input {
+    width: 100%;
+    display: flex;
+    padding: 10px 10px 10px 0px;
   }
 
-  &-btn {
-    border-color: rgb(219, 219, 219) !important;
-    background-color: rgb(41, 41, 41) !important;
-
-    &:hover {
-      background-color: white;
-    }
+  &-icon {
+    padding: 10px;
+    font-size: 2.5em;
+    margin-right: 10px;
+    color: rgb(190, 190, 190);
   }
+
 }
 .form-inline {
   width: 100%;
 }
 
 .form-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   padding: 1rem;
   margin-bottom: 0px !important;
 }
 
-.input-group {
-  width: 90% !important;
-}
+// .input-group {
+//   width: 90% !important;
+// }
 
 // .form-control {
 //   width: 80% !important;
