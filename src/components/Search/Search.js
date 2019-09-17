@@ -10,10 +10,14 @@ class Search extends Component {
       <div className="search">
         <Form onSubmit={this.handleSubmit}>
           <Form.Group as={Row} controlId="searchForm">
-            <Form.Control className="seach-form" type="text" placeholder="Enter street..." />
-            <Button variant="primary" type="submit" className="search-btn">
-              Search
-            </Button>
+            <Col sm="10">
+              <Form.Control className="seach-form" type="text" placeholder="Enter street..." />
+            </Col>
+            <Col sm="2">
+              <Button variant="primary" type="submit" className="search-btn">
+                Search
+              </Button>
+            </Col>
           </Form.Group>
         </Form>
       </div>

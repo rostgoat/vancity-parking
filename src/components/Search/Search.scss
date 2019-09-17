@@ -2,19 +2,32 @@
   position: absolute;
   z-index: 1000;
   top: 75px;
-  background-color: rgb(46, 46, 46);
-  left: 400px;
+  background-color: rgb(41, 41, 41);
+  left: 50%;
   width: 40%;
+  margin-left: calc((40% / 2) * -1);
   border-radius: 30px;
   box-shadow: 0 1.5rem 4rem rgba(#000, 0.25);
+  transform: translateY(3px);
+  transition: all 0.4s 0.2s;
+
+  &:hover {
+    transform: translateY(-3px);
+    transition: all 0.4s 0.2s;
+    box-shadow: 0 1.5rem 4rem rgba(#000, 0.35);
+  }
 
   &-form {
     width: 80%;
   }
 
   &-btn {
-    margin-left: 10px;
-    float: right;
+    border-color: rgb(219, 219, 219) !important;
+    background-color: rgb(41, 41, 41) !important;
+
+    &:hover {
+      background-color: white;
+    }
   }
 }
 .form-inline {
@@ -22,7 +35,7 @@
 }
 
 .form-group {
-  padding: 1.5rem;
+  padding: 1rem;
   margin-bottom: 0px !important;
 }
 
@@ -30,9 +43,9 @@
   width: 90% !important;
 }
 
-.form-control {
-  width: 80% !important;
-}
+// .form-control {
+//   width: 80% !important;
+// }
 
 span.input-group-addon {
   width: 50px !important;
