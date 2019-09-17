@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import "./Search.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 class Search extends Component {
   // method will search for specified street or address
@@ -15,7 +17,7 @@ class Search extends Component {
             </Col>
             <Col sm="2">
               <Button variant="primary" type="submit" className="search-btn">
-                Search
+                <FontAwesomeIcon icon={faSearch} className="seach-icon" />
               </Button>
             </Col>
           </Form.Group>
