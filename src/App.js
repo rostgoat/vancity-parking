@@ -11,7 +11,6 @@ class App extends React.Component {
   };
 
   getSearchedValue = data => {
-    console.log("data :", data);
     this.setState({
       data: data
     });
