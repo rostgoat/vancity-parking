@@ -7,22 +7,42 @@ import axios from "axios";
 
 class Search extends Component {
   state = {
-    searchedValue: ""
+    searchedValue: "",
+    areas: [
+      "Downtown",
+      "Fairview",
+      "West End",
+      "Kitsilano",
+      "Mount Pleasant",
+      "Strathcona",
+      "Grandview-Woodland",
+      "Riley Park",
+      "West Point Grey",
+      "Arbutus-Ridge",
+      "Kerrisdale",
+      "South Cambie",
+      "Kensington-Cedar Cottage",
+      "Renfrew-Collingwood",
+      "Killarney",
+      "Shaughnessy",
+      "Hastings-Sunrise"
+    ]
   };
 
-  async componentDidMount() {
-    const res = await axios.get(
-      "https://opendata.vancouver.ca/api/records/1.0/search/?dataset=parking-meters&facet=geo_local_area&refine.geo_local_area=Hastings-Sunrise"
-    );
-    console.log("res :", res);
-  }
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state.searchedValue);
 
-    if (this.state.searchedValue.includes("Hastings")) {
-      this.props.searchedCallBack(this.state.searchedValue);
-    }
+    this.state.areas.forEach(async area => {
+      if (area.includes(this.state.searchedValue)) {
+        const res = await axios.get(
+          `https://opendata.vancouver.ca/api/records/1.0/search/?dataset=parking-meters&facet=geo_local_area&refine.geo_local_area=${area}`
+        );
+        this.props.searchedCallBack(res);
+        this.setState({
+          searchedValue: ""
+        });
+      }
+    });
   };
 
   handleSearch = e => {
@@ -43,7 +63,7 @@ class Search extends Component {
               <Form.Control
                 className="search-input"
                 type="text"
-                placeholder="Enter street..."
+                placeholder="Enter street or area..."
                 value={this.state.searchedValue}
                 name="search"
                 onChange={this.handleSearch}
