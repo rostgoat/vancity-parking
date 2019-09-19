@@ -7,11 +7,14 @@ import SideBar from "./components/SideBar";
 import { Container, Row, Col } from "react-bootstrap";
 
 class App extends React.Component {
+  getSearchedValue = data => {
+    console.log("data :", data);
+  };
   render() {
     return (
       <div>
         <Nav></Nav>
-        <Search></Search>
+        <Search searchedCallBack={this.getSearchedValue} />
         <Map></Map>
         <SideBar></SideBar>
       </div>
