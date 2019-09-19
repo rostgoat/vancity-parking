@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navbar, Brand } from "react-bootstrap";
+import { Navbar } from "react-bootstrap";
 import "./Nav.css";
 
 class Nav extends Component {
