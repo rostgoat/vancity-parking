@@ -45,6 +45,13 @@ function useMap() {
 
 const WrappedMap = withScriptjs(withGoogleMap(useMap));
 class Map extends Component {
+  componentDidMount() {
+    console.log("this.props.searchedValue :", this.props.searchedValue);
+  }
+
+  componentDidUpdate() {
+    console.log("update: this.props.searchedValue :", this.props.searchedValue);
+  }
   render() {
     return (
       <div className="map">

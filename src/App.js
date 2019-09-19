@@ -7,15 +7,22 @@ import SideBar from "./components/SideBar";
 import { Container, Row, Col } from "react-bootstrap";
 
 class App extends React.Component {
+  state = {
+    data: ""
+  };
+
   getSearchedValue = data => {
     console.log("data :", data);
+    this.setState({
+      data: data
+    });
   };
   render() {
     return (
       <div>
         <Nav></Nav>
         <Search searchedCallBack={this.getSearchedValue} />
-        <Map></Map>
+        <Map searchedValue={this.state.data} />
         <SideBar></SideBar>
       </div>
     );
