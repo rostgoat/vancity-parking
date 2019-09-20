@@ -5,21 +5,18 @@ import "./Map.css";
 
 const useMap = props => {
   const [selectedMeter, setSelectedMeter] = useState(null);
-  console.log("props :", props);
   // console.log("props :", props.data.length > 0 ? props.data[0].fields.geom : null);
   return (
     <GoogleMap defaultZoom={14} defaultCenter={{ lat: 49.2827, lng: -123.1207 }}>
-      {props.length > 0
-        ? props.data.map(meter => (
-            <Marker
-              key={meter.recordid}
-              position={{ lat: meter.fields.geom.coordinates[1], lng: meter.fields.geom.coordinates[0] }}
-              onClick={() => {
-                setSelectedMeter(meter);
-              }}
-            />
-          ))
-        : null}
+      {meterData.data.map(meter => (
+        <Marker
+          key={meter.recordid}
+          position={{ lat: meter.fields.geom.coordinates[1], lng: meter.fields.geom.coordinates[0] }}
+          onClick={() => {
+            setSelectedMeter(meter);
+          }}
+        />
+      ))}
 
       {/* shows info window about meter. onCloseClick allows you to close the info window and open another one, reseting state */}
       {selectedMeter && (
@@ -49,6 +46,8 @@ const useMap = props => {
 const WrappedMap = withScriptjs(withGoogleMap(useMap));
 class Map extends Component {
   render() {
+    const data = this.props.searchedResponse !== null ? this.props.searchedResponse : [];
+    console.log("data :", data);
     return (
       <div className="map">
         <WrappedMap
@@ -56,7 +55,7 @@ class Map extends Component {
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `100vh` }} />}
           mapElement={<div style={{ height: `100%` }} />}
-          data={this.props.searchedValue}
+          data={data}
         />
       </div>
     );

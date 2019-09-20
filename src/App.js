@@ -9,17 +9,20 @@ import areas from "./data/areas";
 
 class App extends React.Component {
   state = {
-    searchedValue: ""
+    searchedValue: "",
+    searchedResponse: []
   };
 
   handleSubmit = e => {
     e.preventDefault();
-
     areas.forEach(async area => {
       if (area.includes(this.state.searchedValue)) {
         const res = await axios.get(
           `https://opendata.vancouver.ca/api/records/1.0/search/?dataset=parking-meters&facet=geo_local_area&refine.geo_local_area=${area}`
         );
+        this.setState({
+          searchedResponse: res
+        });
       }
     });
   };
@@ -36,10 +39,10 @@ class App extends React.Component {
         <Nav></Nav>
         <Search
           searchedValue={this.state.searchedValue}
-          onSubmit={this.handleSubmit}
+          handleSubmit={this.handleSubmit}
           onSearchedInputChange={this.onSearchedInputChange}
         />
-        <Map searchedValue={this.state.searchedValue} />
+        <Map searchedResponse={this.state.searchedResponse} />
         <SideBar></SideBar>
       </div>
     );

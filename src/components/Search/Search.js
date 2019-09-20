@@ -5,6 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 class Search extends Component {
+  handleSubmit = e => {
+    this.props.handleSubmit(e);
+  };
   // pass callback to parent with searched field
   handleSearch = e => {
     this.props.onSearchedInputChange(e.target.value);
