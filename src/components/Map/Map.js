@@ -5,10 +5,9 @@ import "./Map.css";
 
 const useMap = props => {
   const [selectedMeter, setSelectedMeter] = useState(null);
-  // console.log("props :", props.data.length > 0 ? props.data[0].fields.geom : null);
   return (
     <GoogleMap defaultZoom={14} defaultCenter={{ lat: 49.2827, lng: -123.1207 }}>
-      {meterData.data.map(meter => (
+      {props.data ? props.data.data.records.map(meter => (
         <Marker
           key={meter.recordid}
           position={{ lat: meter.fields.geom.coordinates[1], lng: meter.fields.geom.coordinates[0] }}
@@ -16,7 +15,7 @@ const useMap = props => {
             setSelectedMeter(meter);
           }}
         />
-      ))}
+      )) : null}
 
       {/* shows info window about meter. onCloseClick allows you to close the info window and open another one, reseting state */}
       {selectedMeter && (
@@ -46,8 +45,7 @@ const useMap = props => {
 const WrappedMap = withScriptjs(withGoogleMap(useMap));
 class Map extends Component {
   render() {
-    const data = this.props.searchedResponse !== null ? this.props.searchedResponse : [];
-    console.log("data :", data);
+    const data = this.props.searchedResponse;
     return (
       <div className="map">
         <WrappedMap

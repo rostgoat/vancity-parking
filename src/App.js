@@ -10,7 +10,7 @@ import areas from "./data/areas";
 class App extends React.Component {
   state = {
     searchedValue: "",
-    searchedResponse: []
+    searchedResponse: null
   };
 
   handleSubmit = e => {
