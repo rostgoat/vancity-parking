@@ -5,7 +5,8 @@ import "./Map.css";
 
 const useMap = props => {
   const [selectedMeter, setSelectedMeter] = useState(null);
-  console.log("props :", props.data.length > 0 ? props.data[0].fields.geom : null);
+  console.log("props :", props);
+  // console.log("props :", props.data.length > 0 ? props.data[0].fields.geom : null);
   return (
     <GoogleMap defaultZoom={14} defaultCenter={{ lat: 49.2827, lng: -123.1207 }}>
       {props.length > 0
@@ -47,15 +48,6 @@ const useMap = props => {
 
 const WrappedMap = withScriptjs(withGoogleMap(useMap));
 class Map extends Component {
-  state = {
-    data: []
-  };
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      data: nextProps.searchedValue.data.records
-    });
-  }
   render() {
     return (
       <div className="map">
@@ -64,7 +56,7 @@ class Map extends Component {
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `100vh` }} />}
           mapElement={<div style={{ height: `100%` }} />}
-          data={this.state.data}
+          data={this.props.searchedValue}
         />
       </div>
     );

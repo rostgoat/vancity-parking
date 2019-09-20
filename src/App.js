@@ -4,23 +4,42 @@ import Map from "./components/Map/Map";
 import Nav from "./components/Nav/Nav";
 import Search from "./components/Search/Search";
 import SideBar from "./components/SideBar";
+import axios from "axios";
+import areas from "./data/areas";
 
 class App extends React.Component {
   state = {
-    data: ""
+    searchedValue: ""
   };
 
-  getSearchedValue = data => {
-    this.setState({
-      data: data
+  handleSubmit = e => {
+    e.preventDefault();
+
+    areas.forEach(async area => {
+      if (area.includes(this.state.searchedValue)) {
+        const res = await axios.get(
+          `https://opendata.vancouver.ca/api/records/1.0/search/?dataset=parking-meters&facet=geo_local_area&refine.geo_local_area=${area}`
+        );
+      }
     });
   };
+
+  onSearchedInputChange = searchedValue => {
+    this.setState({
+      searchedValue: searchedValue
+    });
+  };
+
   render() {
     return (
       <div>
         <Nav></Nav>
-        <Search searchedCallBack={this.getSearchedValue} />
-        <Map searchedValue={this.state.data} />
+        <Search
+          searchedValue={this.state.searchedValue}
+          onSubmit={this.handleSubmit}
+          onSearchedInputChange={this.onSearchedInputChange}
+        />
+        <Map searchedValue={this.state.searchedValue} />
         <SideBar></SideBar>
       </div>
     );
