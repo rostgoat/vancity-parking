@@ -1,25 +1,36 @@
 import React, { Component } from "react";
-import { Form, Button, Row, Col, FormControl, InputGroup } from "react-bootstrap";
+import { Form, InputGroup } from "react-bootstrap";
 import "./Search.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 class Search extends Component {
-  // method will search for specified street or address
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('clicked submit')
+  handleSubmit = e => {
+    this.props.handleSubmit(e);
   };
+  // pass callback to parent with searched field
+  handleSearch = e => {
+    this.props.onSearchedInputChange(e.target.value);
+  };
+
   render() {
+    const searchedValue = this.props.searchedValue;
     return (
       <div className="search">
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="searchForm" className="search-form">
             <InputGroup>
-            <InputGroup.Prepend>
+              <InputGroup.Prepend>
                 <FontAwesomeIcon icon={faSearch} className="search-icon" />
-            </InputGroup.Prepend>
-              <Form.Control className="search-input" type="text" placeholder="Enter street..." />
+              </InputGroup.Prepend>
+              <Form.Control
+                className="search-input"
+                type="text"
+                placeholder="Enter street or area..."
+                value={searchedValue}
+                name="search"
+                onChange={this.handleSearch}
+              />
             </InputGroup>
           </Form.Group>
         </Form>

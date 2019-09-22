@@ -3,12 +3,11 @@ import { GoogleMap, withScriptjs, withGoogleMap, Marker, InfoWindow } from "reac
 import * as meterData from "../../data/parking-meters1.json";
 import "./Map.css";
 
-function useMap() {
+const useMap = props => {
   const [selectedMeter, setSelectedMeter] = useState(null);
-
   return (
-    <GoogleMap defaultZoom={15} defaultCenter={{ lat: 49.2827, lng: -123.1207 }}>
-      {meterData.data.map(meter => (
+    <GoogleMap defaultZoom={14} defaultCenter={{ lat: 49.2827, lng: -123.1207 }}>
+      {props.data ? props.data.data.records.map(meter => (
         <Marker
           key={meter.recordid}
           position={{ lat: meter.fields.geom.coordinates[1], lng: meter.fields.geom.coordinates[0] }}
@@ -16,7 +15,7 @@ function useMap() {
             setSelectedMeter(meter);
           }}
         />
-      ))}
+      )) : null}
 
       {/* shows info window about meter. onCloseClick allows you to close the info window and open another one, reseting state */}
       {selectedMeter && (
@@ -41,11 +40,12 @@ function useMap() {
       )}
     </GoogleMap>
   );
-}
+};
 
 const WrappedMap = withScriptjs(withGoogleMap(useMap));
 class Map extends Component {
   render() {
+    const data = this.props.searchedResponse;
     return (
       <div className="map">
         <WrappedMap
@@ -53,6 +53,7 @@ class Map extends Component {
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `100vh` }} />}
           mapElement={<div style={{ height: `100%` }} />}
+          data={data}
         />
       </div>
     );
