@@ -68,7 +68,8 @@ class Map extends Component {
   };
   render() {
     const data = this.props.searchedResponse;
-    const AnyReactComponent = ({ text }) => <div>{text}</div>;
+    console.log("data", data);
+    const Marker = ({ text }) => <div>{text}</div>;
     return (
       <div className="map">
         <GoogleMapReact
@@ -78,7 +79,16 @@ class Map extends Component {
             key: "AIzaSyBlh-6hh0jO_I2c7FWR-vNzFsDqebeaL9I"
           }}
         >
-          <AnyReactComponent lat={59.955413} lng={30.337844} text={"Kreyser Avrora"} />
+          {data
+            ? data.data.records.map(marker => (
+                <Marker
+                  key={marker.recordid}
+                  lat={marker.fields.geom.coordinates[1]}
+                  lng={marker.fields.geom.coordinates[0]}
+                  text={"M"}
+                />
+              ))
+            : null}
         </GoogleMapReact>
       </div>
     );
