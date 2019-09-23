@@ -36,14 +36,14 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Nav></Nav>
+        {/* <Nav></Nav> */}
         <Search
           searchedValue={this.state.searchedValue}
           handleSubmit={this.handleSubmit}
           onSearchedInputChange={this.onSearchedInputChange}
         />
         <Map searchedResponse={this.state.searchedResponse} />
-        <SideBar></SideBar>
+        {/* <SideBar></SideBar> */}
       </div>
     );
   }
