@@ -1,22 +1,30 @@
 import React, { Component } from "react";
 import "./Map.css";
 import GoogleMapReact from "google-map-react";
-import { FaMapMarkerAlt } from "react-icons/fa";
-
+import Marker from "../Marker/Marker";
 class Map extends Component {
-  static defaultProps = {
-    center: {
-      lat: 49.2827,
-      lng: -123.1207
-    },
+  state = {
+    center: [49.2827, -123.1207],
     zoom: 14
   };
+
+  onChange = (center, zoom) => {
+    this.setState({
+      center: center,
+      zoom: zoom
+    });
+  };
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log("prevProps :", prevProps);
+    console.log("prevState :", prevState);
+  }
   render() {
     const data = this.props.searchedResponse;
     console.log("data", data);
     const Markers = data
       ? data.data.records.map(marker => (
-          <FaMapMarkerAlt
+          <Marker
             color="red"
             size="2em"
             key={marker.recordid}
@@ -28,9 +36,9 @@ class Map extends Component {
     return (
       <div className="map">
         <GoogleMapReact
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-          hoverDistance={30}
+          // onChange={this.onChange}
+          defaultCenter={this.state.center}
+          defaultZoom={this.state.zoom}
           bootstrapURLKeys={{
             key: "AIzaSyBlh-6hh0jO_I2c7FWR-vNzFsDqebeaL9I"
           }}

@@ -1,8 +1,13 @@
 import React, { Component } from "react";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 class Marker extends Component {
   render() {
-    return <div>Marker</div>;
+    return (
+      <div>
+        <FaMapMarkerAlt color="red" size="2em" />
+      </div>
+    );
   }
 }
 
