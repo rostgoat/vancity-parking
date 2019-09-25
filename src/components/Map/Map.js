@@ -2,10 +2,15 @@ import React, { Component } from "react";
 import "./Map.css";
 import GoogleMapReact from "google-map-react";
 import Marker from "../Marker/Marker";
+
+const defaultLat = 49.2827;
+const defaultLng = -123.1207;
+const defaultZoom = 14;
+
 class Map extends Component {
   state = {
-    center: [49.2827, -123.1207],
-    zoom: 14
+    center: [defaultLat, defaultLng],
+    zoom: defaultZoom
   };
 
   onChange = (center, zoom) => {
@@ -15,10 +20,6 @@ class Map extends Component {
     });
   };
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log("prevProps :", prevProps);
-    console.log("prevState :", prevState);
-  }
   render() {
     const data = this.props.searchedResponse;
     console.log("data", data);
@@ -36,7 +37,6 @@ class Map extends Component {
     return (
       <div className="map">
         <GoogleMapReact
-          // onChange={this.onChange}
           defaultCenter={this.state.center}
           defaultZoom={this.state.zoom}
           bootstrapURLKeys={{
