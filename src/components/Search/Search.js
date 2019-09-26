@@ -5,16 +5,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 class Search extends Component {
+  state = {
+    searchTerm: ""
+  };
+
   handleSubmit = e => {
     this.props.handleSubmit(e);
   };
-  // pass callback to parent with searched field
+
   handleSearch = e => {
-    this.props.onSearchedInputChange(e.target.value);
+    this.setState({ searchTerm: e.target.value });
+  };
+
+  handleKeyPress = e => {
+    if (e.key === "Enter") {
+      this.props.onSearchedInputChange(this.state.searchTerm);
+    }
   };
 
   render() {
-    const searchedValue = this.props.searchedValue;
     return (
       <div className="search">
         <Form onSubmit={this.handleSubmit}>
@@ -27,9 +36,10 @@ class Search extends Component {
                 className="search-input"
                 type="text"
                 placeholder="Enter street or area..."
-                value={searchedValue}
+                value={this.state.searchTerm}
                 name="search"
                 onChange={this.handleSearch}
+                onKeyPress={this.handleKeyPress.bind(this)}
               />
             </InputGroup>
           </Form.Group>

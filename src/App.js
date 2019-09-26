@@ -3,7 +3,7 @@ import "./App.css";
 import Map from "./components/Map/Map";
 import Nav from "./components/Nav/Nav";
 import Search from "./components/Search/Search";
-import SideBar from "./components/SideBar";
+import SideBar from "./components/SideBar/SideBar";
 import axios from "axios";
 import areas from "./data/areas";
 
@@ -43,7 +43,7 @@ class App extends React.Component {
           onSearchedInputChange={this.onSearchedInputChange}
         />
         <Map searchedResponse={this.state.searchedResponse} />
-        {/* <SideBar></SideBar> */}
+        <SideBar></SideBar>
       </div>
     );
   }
