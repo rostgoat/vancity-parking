@@ -1,18 +1,16 @@
 .icon {
   cursor: pointer;
   color: rgb(231, 116, 116);
-  transform: translateY(3px);
+  transform: translateY(5px);
   transition: all 0.2s 0.2s;
   animation: bounce 1s infinite alternate;
-  transform: translateY(0px);
   transition: color 0.3s transform;
   -webkit-backface-visibility: hidden;
   -webkit-transform: translateZ(0) translateY(3px);
 
   &:hover {
     transform: translateY(-5px) scale(1.5);
-    transition: all 0.2s 0.2s;
-    animation-play-state: running;
+    transition: all 0.2s 0.2s transform;
     color: #6186f2;
     transition: color 0.3s transform;
     -webkit-backface-visibility: hidden;
