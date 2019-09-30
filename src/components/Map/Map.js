@@ -42,18 +42,23 @@ class Map extends Component {
     return null;
   }
 
+  onSelectMarker = marker => e => {
+    console.log("clicked");
+  };
   render() {
     const data = this.props.searchedResponse;
+
     const Markers = data
-      ? data.data.records.map(marker => (
-          <Marker
-            color="red"
-            size="2em"
-            key={marker.recordid}
-            lat={marker.fields.geom.coordinates[1]}
-            lng={marker.fields.geom.coordinates[0]}
-          />
-        ))
+      ? data.data.records.map(marker => {
+          return (
+            <Marker
+              key={marker.recordid}
+              lat={marker.fields.geom.coordinates[1]}
+              lng={marker.fields.geom.coordinates[0]}
+              onClick={() => this.onSelectMarker(marker)}
+            />
+          );
+        })
       : null;
     return (
       <div className="map">

@@ -1,19 +1,18 @@
 .icon {
   cursor: pointer;
   color: rgb(231, 116, 116);
-  transform: translateY(5px);
-  transition: all 0.2s 0.2s;
-  animation: bounce 1s infinite alternate;
-  transition: color 0.3s transform;
+  transform: translateZ(0) translateY(5px);
+  backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   -webkit-transform: translateZ(0) translateY(3px);
+  transition: all 0.2s;
 
   &:hover {
-    transform: translateY(-5px) scale(1.5);
-    transition: all 0.2s 0.2s transform;
+    transform: translateZ(0) translateY(-5px) scale(2);
     color: #6186f2;
-    transition: color 0.3s transform;
+    backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    -webkit-transform: translateZ(0) scale(1.5) translateY(-5px);
+    -webkit-transform: translateZ(0) scale(2) translateY(-5px);
+    transition: all 0.2s;
   }
 }
