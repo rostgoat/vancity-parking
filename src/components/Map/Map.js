@@ -34,7 +34,8 @@ class Map extends Component {
 
       if (oldLat !== newLat && oldLng !== newLng) {
         return {
-          center: [newLat, newLng]
+          center: [newLat, newLng],
+          zoom: 15
         };
       }
     }
@@ -58,7 +59,7 @@ class Map extends Component {
       <div className="map">
         <GoogleMapReact
           center={this.state.center}
-          defaultZoom={this.state.zoom}
+          zoom={this.state.zoom}
           bootstrapURLKeys={{
             key: process.env.REACT_APP_GOOGLE_KEY
           }}
