@@ -35,7 +35,7 @@ class Map extends Component {
       if (oldLat !== newLat && oldLng !== newLng) {
         return {
           center: [newLat, newLng],
-          zoom: 15
+          zoom: 16
         };
       }
     }

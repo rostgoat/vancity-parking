@@ -1,0 +1,14 @@
+.icon {
+  cursor: pointer;
+  color: rgb(231, 116, 116);
+  transform: translateY(3px);
+  transition: all 0.2s 0.2s;
+  animation: bounce 1s infinite alternate;
+  transform: translateY(0px);
+
+  &:hover {
+    transform: translateY(-5px) scale(1.5);
+    transition: all 0.2s 0.2s;
+    animation-play-state: running;
+  }
+}
