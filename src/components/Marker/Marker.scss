@@ -1,0 +1,18 @@
+.icon {
+  cursor: pointer;
+  color: rgb(231, 116, 116);
+  transform: translateZ(0) translateY(5px);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translateZ(0) translateY(3px);
+  transition: all 0.2s;
+
+  &:hover {
+    transform: translateZ(0) translateY(-5px) scale(2);
+    color: #6186f2;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0) scale(2) translateY(-5px);
+    transition: all 0.2s;
+  }
+}
