@@ -43,7 +43,7 @@ class Map extends Component {
   }
 
   onSelectMarker = marker => e => {
-    console.log("clicked");
+    return console.log("clicked");
   };
   render() {
     const data = this.props.searchedResponse;
@@ -55,11 +55,12 @@ class Map extends Component {
               key={marker.recordid}
               lat={marker.fields.geom.coordinates[1]}
               lng={marker.fields.geom.coordinates[0]}
-              onClick={() => this.onSelectMarker(marker)}
+              onClick={this.onSelectMarker.bind(this, marker)}
             />
           );
         })
       : null;
+    console.log("Markers", Markers);
     return (
       <div className="map">
         <GoogleMapReact

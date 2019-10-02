@@ -16,12 +16,10 @@ class Marker extends Component {
   state = {
     markerData: {}
   };
-  onSelectMarker = e => {
-    console.log("child button");
-  };
+
   static getDerivedStateFromProps(props, state) {
-    console.log("props", props);
-    console.log("state", state);
+    // console.log("props", props);
+    // console.log("state", state);
 
     if (props.markerData !== null) {
       if (props.markerData !== state.markerData) {
@@ -33,10 +31,6 @@ class Marker extends Component {
     return null;
   }
   render() {
-    const markerData = this.props.markerData;
-    if (markerData) {
-    }
-    // console.log("this.markerData", markerData);
     return (
       <div>
         <OverlayTrigger trigger="hover" placement="bottom" overlay={popover}>
