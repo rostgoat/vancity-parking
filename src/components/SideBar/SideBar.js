@@ -67,7 +67,13 @@ class SideBar extends Component {
           </div>
         ))
       : null;
-    return <div className="sidebar">{sidebarItems}</div>;
+    return (
+      <div className="sidebar">
+        <div className="sidebar-container">
+          <div className="sidebar-list">{sidebarItems}</div>
+        </div>
+      </div>
+    );
   }
 }
 

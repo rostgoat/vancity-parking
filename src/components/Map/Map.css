@@ -1,7 +1,8 @@
 .map {
-  position: absolute;
-  width: 80%;
-  height: 100vh;
+  position: fixed;
+  height: 100%;
   border: 3px;
   box-sizing: border-box;
+  left: 0;
+  width: 80%;
 }
