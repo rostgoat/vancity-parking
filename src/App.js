@@ -43,7 +43,7 @@ class App extends React.Component {
           onSearchedInputChange={this.onSearchedInputChange}
         />
         <Map searchedResponse={this.state.searchedResponse} />
-        <SideBar></SideBar>
+        <SideBar searchedResponse={this.state.searchedResponse}></SideBar>
       </div>
     );
   }

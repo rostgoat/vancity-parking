@@ -1,9 +1,18 @@
 import React, { Component } from "react";
-import "./SideBar.css";
+import "./SideBar.scss";
 
 class SideBar extends Component {
   render() {
-    return <div className="sidebar">SideBar</div>;
+    const data = this.props.searchedResponse;
+    console.log("data", data);
+    const sidebarItems = data
+      ? data.data.records.map(item => (
+          <div className="sidebar-item" key={item.recordid}>
+            {item.fields.meterid}
+          </div>
+        ))
+      : null;
+    return <div className="sidebar">{sidebarItems}</div>;
   }
 }
 
