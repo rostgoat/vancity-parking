@@ -23,7 +23,9 @@ class SideBar extends Component {
                   )}
                 </div>
               </div>
-              <div className="sidebar-item__info-time-rates"></div>
+              <div className="sidebar-item__info-time-rates">
+                <div className="sidebar-item__info-time-rates--meter">{item.fields.pay_phone}</div>
+              </div>
             </div>
           </div>
         ))
