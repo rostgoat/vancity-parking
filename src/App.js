@@ -13,11 +13,9 @@ class App extends React.Component {
     defaultArea: "Hastings-Sunrise"
   };
   async componentDidMount() {
-    await console.log("this.state.defaultArea :", this.state.defaultArea);
     const res = await axios.get(
       `https://opendata.vancouver.ca/api/records/1.0/search/?dataset=parking-meters&facet=geo_local_area&refine.geo_local_area=${this.state.defaultArea}`
     );
-    await console.log("res", res);
     await this.setState({
       searchedResponse: res
     });

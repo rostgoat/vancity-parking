@@ -7,11 +7,11 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  background-color: rgb(212, 212, 212);
+  background-color: #343a40;
 
   &-item {
     display: block;
-    height: 7rem;
+    height: 10rem;
     padding: 0.2rem;
     margin: 0.3rem;
     border-radius: 0.3rem;
@@ -42,7 +42,7 @@
       &-basic {
         display: block;
         height: 100%;
-        width: 40%;
+        width: 35%;
         padding: 1rem;
 
         &--meter {
@@ -63,8 +63,19 @@
       &-time-rates {
         display: block;
         height: 100%;
-        width: 60%;
-        background-color: rgb(194, 172, 255);
+        width: 65%;
+        padding: 0.5rem;
+        border-left: 1px solid rgb(202, 202, 202);
+
+        &--row {
+          font-size: 0.7rem;
+          display: flex;
+          flex-direction: row;
+        }
+        &--col {
+          color: black;
+          padding-left: 0.5rem;
+        }
       }
     }
   }

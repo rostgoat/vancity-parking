@@ -24,7 +24,44 @@ class SideBar extends Component {
                 </div>
               </div>
               <div className="sidebar-item__info-time-rates">
-                <div className="sidebar-item__info-time-rates--meter">{item.fields.pay_phone}</div>
+                <div className="sidebar-item__info-time-rates--row">
+                  <div className="sidebar-item__info-time-rates--col">Mon - Fri</div>
+                  <div className="sidebar-item__info-time-rates--col">9:00am - 6:00pm</div>
+                  <div className="sidebar-item__info-time-rates--col">{item.fields.t_mf_9a_6p}</div>
+                  <div className="sidebar-item__info-time-rates--col">{item.fields.r_mf_9a_6p}</div>
+                </div>
+                <div className="sidebar-item__info-time-rates--row">
+                  <div className="sidebar-item__info-time-rates--col">Mon - Fri</div>
+                  <div className="sidebar-item__info-time-rates--col">6:00am - 10:00pm</div>
+                  <div className="sidebar-item__info-time-rates--col">{item.fields.t_mf_6p_10}</div>
+                  <div className="sidebar-item__info-time-rates--col">{item.fields.r_mf_6p_10}</div>
+                </div>
+
+                <div className="sidebar-item__info-time-rates--row">
+                  <div className="sidebar-item__info-time-rates--col">Sat</div>
+                  <div className="sidebar-item__info-time-rates--col">9:00am - 6:00pm</div>
+                  <div className="sidebar-item__info-time-rates--col">{item.fields.t_sa_9a_6p}</div>
+                  <div className="sidebar-item__info-time-rates--col">{item.fields.r_sa_9a_6p}</div>
+                </div>
+                <div className="sidebar-item__info-time-rates--row">
+                  <div className="sidebar-item__info-time-rates--col">Sat</div>
+                  <div className="sidebar-item__info-time-rates--col">6:00am - 10:00pm</div>
+                  <div className="sidebar-item__info-time-rates--col">{item.fields.t_sa_6p_10}</div>
+                  <div className="sidebar-item__info-time-rates--col">{item.fields.r_sa_6p_10}</div>
+                </div>
+
+                <div className="sidebar-item__info-time-rates--row">
+                  <div className="sidebar-item__info-time-rates--col">Sun</div>
+                  <div className="sidebar-item__info-time-rates--col">9:00am - 6:00pm</div>
+                  <div className="sidebar-item__info-time-rates--col">{item.fields.t_su_9a_6p}</div>
+                  <div className="sidebar-item__info-time-rates--col">{item.fields.r_su_9a_6p}</div>
+                </div>
+                <div className="sidebar-item__info-time-rates--row">
+                  <div className="sidebar-item__info-time-rates--col">Sun</div>
+                  <div className="sidebar-item__info-time-rates--col">6:00am - 10:00pm</div>
+                  <div className="sidebar-item__info-time-rates--col">{item.fields.t_su_6p_10}</div>
+                  <div className="sidebar-item__info-time-rates--col">{item.fields.r_su_6p_10}</div>
+                </div>
               </div>
             </div>
           </div>
