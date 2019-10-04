@@ -1,0 +1,82 @@
+.sidebar {
+  position: absolute;
+  width: 20%;
+  height: 100vh;
+  border: 3px;
+  right: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background-color: #343a40;
+
+  &-item {
+    display: block;
+    height: 10rem;
+    padding: 0.2rem;
+    margin: 0.3rem;
+    border-radius: 0.3rem;
+    color: black;
+    cursor: pointer;
+    background-color: rgb(248, 248, 248);
+    -webkit-box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.1);
+    transform: translateY(1px);
+    transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+
+    &:hover {
+      transform: translateY(-1px);
+      transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+      -webkit-box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.26);
+      -moz-box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.26);
+      box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.26);
+    }
+
+    &__info {
+      display: flex;
+      flex-direction: row;
+      height: 100%;
+      width: 100%;
+      border-radius: 0.3rem;
+
+      &-basic {
+        display: block;
+        height: 100%;
+        width: 35%;
+        padding: 1rem;
+
+        &--meter {
+          font-size: 0.85rem;
+          font-weight: 500;
+        }
+
+        &--street {
+          font-size: 0.75rem;
+          color: rgb(138, 138, 138);
+        }
+
+        &--payment {
+          font-size: 0.69rem;
+        }
+      }
+
+      &-time-rates {
+        display: block;
+        height: 100%;
+        width: 65%;
+        padding: 0.5rem;
+        border-left: 1px solid rgb(202, 202, 202);
+
+        &--row {
+          font-size: 0.7rem;
+          display: flex;
+          flex-direction: row;
+        }
+        &--col {
+          color: black;
+          padding-left: 0.5rem;
+        }
+      }
+    }
+  }
+}

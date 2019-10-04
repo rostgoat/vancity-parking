@@ -26,7 +26,7 @@ class Map extends Component {
   static getDerivedStateFromProps(props, state) {
     const oldCenter = state.center;
 
-    if (props.searchedResponse !== null) {
+    if (props.searchedResponse && props.searchedResponse.data.records.length > 0) {
       const newCenter = props.searchedResponse.data.records[0].fields.geom.coordinates;
 
       const [newLng, newLat] = [...newCenter];
