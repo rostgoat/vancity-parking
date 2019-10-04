@@ -11,7 +11,7 @@
 
   &-item {
     display: block;
-    height: 5rem;
+    height: 7rem;
     padding: 0.2rem;
     margin: 0.3rem;
     border-radius: 0.3rem;
@@ -32,7 +32,40 @@
       box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.26);
     }
 
-    &__inner {
+    &__info {
+      display: flex;
+      flex-direction: row;
+      height: 100%;
+      width: 100%;
+      border-radius: 0.3rem;
+
+      &-basic {
+        display: block;
+        height: 100%;
+        width: 40%;
+        padding: 1rem;
+
+        &--meter {
+          font-size: 0.85rem;
+          font-weight: 500;
+        }
+
+        &--street {
+          font-size: 0.75rem;
+          color: rgb(138, 138, 138);
+        }
+
+        &--payment {
+          font-size: 0.69rem;
+        }
+      }
+
+      &-time-rates {
+        display: block;
+        height: 100%;
+        width: 60%;
+        background-color: rgb(27, 10, 75);
+      }
     }
   }
 }
