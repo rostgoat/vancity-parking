@@ -1,8 +1,10 @@
+@import "../../styles/main";
+
 .search {
   position: absolute;
   z-index: 1000;
   top: 75px;
-  background-color: #343a40;
+  background-color: $black;
   left: calc(80% / 2);
   width: 40%;
   margin-left: calc((40% / 2) * -1);
@@ -35,8 +37,8 @@
 }
 
 .form-group {
-  display: flex;
-  flex-direction: row;
+  @include flex-row();
+
   justify-content: center;
   align-items: center;
   padding: 1rem;
