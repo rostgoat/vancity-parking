@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
 import Map from "./components/Map/Map";
 import Search from "./components/Search/Search";
 import SideBar from "./components/SideBar/SideBar";
