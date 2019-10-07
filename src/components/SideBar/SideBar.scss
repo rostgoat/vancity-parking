@@ -1,3 +1,5 @@
+@import "../../styles/main";
+
 .sidebar {
   position: fixed;
   height: 100%;
@@ -5,9 +7,8 @@
   right: 0;
   bottom: 0;
   z-index: 6;
-  display: flex;
-  flex-direction: column;
-  background-color: #343a40;
+  background-color: $black;
+  @include flex-col();
 
   &-container {
     position: relative;
@@ -22,26 +23,26 @@
     padding: 0.2rem;
     margin: 0.3rem;
     border-radius: 0.3rem;
-    color: black;
+    color: $black;
     cursor: pointer;
-    background-color: rgb(248, 248, 248);
-    -webkit-box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.1);
-    box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.1);
+    background-color: $off-gray;
+    -webkit-box-shadow: $sidebar-item-bs-unhover;
+    -moz-box-shadow: $sidebar-item-bs-unhover;
+    box-shadow: $sidebar-item-bs-unhover;
     transform: translateY(1px);
     transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 
     &:hover {
       transform: translateY(-1px);
       transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
-      -webkit-box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.26);
-      -moz-box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.26);
-      box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.26);
+      -webkit-box-shadow: $sidebar-item-bs-hover;
+      -moz-box-shadow: $sidebar-item-bs-hover;
+      box-shadow: $sidebar-item-bs-hover;
     }
 
     &__info {
-      display: flex;
-      flex-direction: row;
+      @include flex-row();
+
       height: 100%;
       width: 100%;
       border-radius: 0.3rem;
@@ -76,8 +77,7 @@
 
         &--row {
           font-size: 0.7rem;
-          display: flex;
-          flex-direction: row;
+          @include flex-row();
         }
         &--col {
           color: black;

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./Map.css";
+import "./Map.scss";
 import GoogleMapReact from "google-map-react";
 import Marker from "../Marker/Marker";
 
