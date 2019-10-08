@@ -10,13 +10,19 @@
   margin-left: calc((40% / 2) * -1);
   border-radius: 10px;
   box-shadow: 0 1.5rem 4rem rgba(#000, 0.25);
-  transform: translateY(3px);
-  transition: all 0.4s 0.2s;
+  transform: scale(1);
+  transition: all 0.2s 0.2s;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-font-smoothing: subpixel-antialiased;
 
   &:hover {
-    transform: translateY(-3px);
-    transition: all 0.4s 0.2s;
-    box-shadow: 0 1.5rem 4rem rgba(#000, 0.35);
+    transform: scale(1.005);
+    transform: translateZ(0);
+    -webkit-font-smoothing: subpixel-antialiased;
+    transition: all 0.2s 0.2s;
+    box-shadow: 0 0.5rem 0.5rem rgba(#000, 0.35);
+    backface-visibility: hidden;
   }
 
   &-input {

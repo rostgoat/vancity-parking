@@ -14,7 +14,7 @@ class App extends React.Component {
   };
   async componentDidMount() {
     const res = await axios.get(
-      `https://opendata.vancouver.ca/api/records/1.0/search/?dataset=parking-meters&facet=geo_local_area&refine.geo_local_area=${this.state.defaultArea}`
+      `https://opendata.vancouver.ca/api/records/1.0/search/?dataset=parking-meters&rows=45&facet=geo_local_area&refine.geo_local_area=${this.state.defaultArea}`
     );
     await this.setState({
       searchedResponse: res
@@ -25,7 +25,7 @@ class App extends React.Component {
     areas.forEach(async area => {
       if (area.includes(this.state.searchedValue)) {
         const res = await axios.get(
-          `https://opendata.vancouver.ca/api/records/1.0/search/?dataset=parking-meters&rows=45&facet=geo_local_area&refine.geo_local_area=${area}`
+          `https://opendata.vancouver.ca/api/records/1.0/search/?dataset=parking-meters&rows=145&facet=geo_local_area&refine.geo_local_area=${area}`
         );
         this.setState({
           searchedResponse: res
