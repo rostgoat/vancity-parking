@@ -13,8 +13,7 @@ const defaultZoom = 17;
 class MapContainer extends Component {
   state = {
     center: { lat, lng },
-    zoom: defaultZoom,
-    showPopup: false
+    zoom: defaultZoom
   };
 
   /**
@@ -42,7 +41,6 @@ class MapContainer extends Component {
     return null;
   }
 
-  togglePopup = () => this.setState(prevState => ({ showPopup: !prevState.showPopup }));
   render() {
     const data = this.props.searchedResponse;
 
@@ -58,11 +56,7 @@ class MapContainer extends Component {
       : null;
     return (
       <div className="map">
-        <Map
-          google={this.props.google}
-          initialCenter={{ lat: this.state.center.lat, lng: this.state.center.lng }}
-          zoom={this.state.zoom}
-        >
+        <Map google={this.props.google} center={this.state.center} zoom={this.state.zoom}>
           {Markers}
 
           <InfoWindow onClose={this.onInfoWindowClose}>
