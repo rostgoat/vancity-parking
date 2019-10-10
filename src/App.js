@@ -12,21 +12,34 @@ class App extends React.Component {
     searchedResponse: null,
     defaultArea: "Hastings-Sunrise"
   };
+
   async componentDidMount() {
-    const res = await axios.get(
-      `https://opendata.vancouver.ca/api/records/1.0/search/?dataset=parking-meters&rows=45&facet=geo_local_area&refine.geo_local_area=${this.state.defaultArea}`
-    );
+    const res = await this.apiCall(this.state.defaultArea, 50);
     await this.setState({
       searchedResponse: res
     });
   }
+
+  /**
+   * Function makes API call to retreive coordinates data for map
+   *
+   * @param {String} area - geographic area
+   * @param {String} rowsAmt - amount of rows to return per area
+   */
+  async apiCall(area, rowsAmt) {
+    return axios.get(
+      `https://opendata.vancouver.ca/api/records/1.0/search/?dataset=parking-meters&rows=${rowsAmt}&facet=geo_local_area&refine.geo_local_area=${area}`
+    );
+  }
+
+  /**
+   * Function handles form submit in Search component and passes data to Map component
+   */
   handleSubmit = e => {
     e.preventDefault();
     areas.forEach(async area => {
       if (area.includes(this.state.searchedValue)) {
-        const res = await axios.get(
-          `https://opendata.vancouver.ca/api/records/1.0/search/?dataset=parking-meters&rows=145&facet=geo_local_area&refine.geo_local_area=${area}`
-        );
+        const res = await this.apiCall(area, 50);
         this.setState({
           searchedResponse: res
         });
@@ -34,6 +47,9 @@ class App extends React.Component {
     });
   };
 
+  /**
+   * Function sets searched value in Search form to state
+   */
   onSearchedInputChange = searchedValue => {
     this.setState({
       searchedValue: searchedValue
@@ -41,7 +57,6 @@ class App extends React.Component {
   };
 
   render() {
-    console.log("this.state.searchedResponse", this.state.searchedResponse);
     return (
       <div>
         <Search

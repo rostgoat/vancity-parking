@@ -6,7 +6,7 @@ import Marker from "../Marker/Marker";
 // constant initial values
 const defaultLat = 49.2827;
 const defaultLng = -123.1207;
-const defaultZoom = 14;
+const defaultZoom = 17;
 
 /**
  * Map Class that renders the Google Map
@@ -14,7 +14,8 @@ const defaultZoom = 14;
 class Map extends Component {
   state = {
     center: [defaultLat, defaultLng],
-    zoom: defaultZoom
+    zoom: defaultZoom,
+    showPopup: false
   };
 
   /**
@@ -25,26 +26,26 @@ class Map extends Component {
    */
   static getDerivedStateFromProps(props, state) {
     const oldCenter = state.center;
-
     if (props.searchedResponse && props.searchedResponse.data.records.length > 0) {
       const newCenter = props.searchedResponse.data.records[0].fields.geom.coordinates;
-
+      const newZoom = state.zoom;
       const [newLng, newLat] = [...newCenter];
       const [oldLat, oldLng] = [...oldCenter];
 
       if (oldLat !== newLat && oldLng !== newLng) {
         return {
           center: [newLat, newLng],
-          zoom: 16
+          zoom: newZoom
         };
       }
     }
     return null;
   }
+  onBoundsChange(coords, zoom) {
+    console.log("zoom", zoom);
+  }
 
-  onSelectMarker = marker => e => {
-    return console.log("clicked");
-  };
+  togglePopup = () => this.setState(prevState => ({ showPopup: !prevState.showPopup }));
   render() {
     const data = this.props.searchedResponse;
 
@@ -55,12 +56,12 @@ class Map extends Component {
               key={marker.recordid}
               lat={marker.fields.geom.coordinates[1]}
               lng={marker.fields.geom.coordinates[0]}
-              onClick={this.onSelectMarker.bind(this, marker)}
+              onClick={this.togglePopup}
+              showPopup={this.state.showPopup}
             />
           );
         })
       : null;
-    console.log("Markers", Markers);
     return (
       <div className="map">
         <GoogleMapReact
@@ -69,6 +70,7 @@ class Map extends Component {
           bootstrapURLKeys={{
             key: process.env.REACT_APP_GOOGLE_KEY
           }}
+          onBoundsChange={this.onBoundsChange}
         >
           {Markers}
         </GoogleMapReact>

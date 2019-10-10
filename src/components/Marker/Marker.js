@@ -16,7 +16,13 @@ class Marker extends Component {
   state = {
     markerData: {}
   };
+  _onClick() {
+    this.props.handleMarkerClick(this.props.marker);
+  }
 
+  handleClick = mapEvent => {
+    mapEvent.origin = "popup";
+  };
   static getDerivedStateFromProps(props, state) {
     // console.log("props", props);
     // console.log("state", state);
@@ -31,6 +37,7 @@ class Marker extends Component {
     return null;
   }
   render() {
+    console.log("this.props.showPopup", this.props.showPopup);
     return (
       <div>
         <OverlayTrigger trigger="hover" placement="bottom" overlay={popover}>
