@@ -1,19 +1,18 @@
 import React, { Component } from "react";
 import "./Map.scss";
-import GoogleMapReact from "google-map-react";
-import Marker from "../Marker/Marker";
-
+// import Marker from "../Marker/Marker";
+import { Map, Marker, InfoWindow, GoogleApiWrapper } from "google-maps-react";
 // constant initial values
-const defaultLat = 49.2827;
-const defaultLng = -123.1207;
+const lat = 49.2827;
+const lng = -123.1207;
 const defaultZoom = 17;
 
 /**
  * Map Class that renders the Google Map
  */
-class Map extends Component {
+class MapContainer extends Component {
   state = {
-    center: [defaultLat, defaultLng],
+    center: { lat, lng },
     zoom: defaultZoom,
     showPopup: false
   };
@@ -26,23 +25,21 @@ class Map extends Component {
    */
   static getDerivedStateFromProps(props, state) {
     const oldCenter = state.center;
+
     if (props.searchedResponse && props.searchedResponse.data.records.length > 0) {
       const newCenter = props.searchedResponse.data.records[0].fields.geom.coordinates;
       const newZoom = state.zoom;
       const [newLng, newLat] = [...newCenter];
-      const [oldLat, oldLng] = [...oldCenter];
+      const { lat, lng } = oldCenter;
 
-      if (oldLat !== newLat && oldLng !== newLng) {
+      if (lat !== newLat && lng !== newLng) {
         return {
-          center: [newLat, newLng],
+          center: { lat: newLat, lng: newLng },
           zoom: newZoom
         };
       }
     }
     return null;
-  }
-  onBoundsChange(coords, zoom) {
-    console.log("zoom", zoom);
   }
 
   togglePopup = () => this.setState(prevState => ({ showPopup: !prevState.showPopup }));
@@ -53,30 +50,32 @@ class Map extends Component {
       ? data.data.records.map(marker => {
           return (
             <Marker
+              position={{ lat: marker.fields.geom.coordinates[1], lng: marker.fields.geom.coordinates[0] }}
               key={marker.recordid}
-              lat={marker.fields.geom.coordinates[1]}
-              lng={marker.fields.geom.coordinates[0]}
-              onClick={this.togglePopup}
-              showPopup={this.state.showPopup}
             />
           );
         })
       : null;
     return (
       <div className="map">
-        <GoogleMapReact
-          center={this.state.center}
+        <Map
+          google={this.props.google}
+          initialCenter={{ lat: this.state.center.lat, lng: this.state.center.lng }}
           zoom={this.state.zoom}
-          bootstrapURLKeys={{
-            key: process.env.REACT_APP_GOOGLE_KEY
-          }}
-          onBoundsChange={this.onBoundsChange}
         >
           {Markers}
-        </GoogleMapReact>
+
+          <InfoWindow onClose={this.onInfoWindowClose}>
+            <div>
+              <h1></h1>
+            </div>
+          </InfoWindow>
+        </Map>
       </div>
     );
   }
 }
 
-export default Map;
+export default GoogleApiWrapper({
+  apiKey: process.env.REACT_APP_GOOGLE_KEY
+})(MapContainer);
