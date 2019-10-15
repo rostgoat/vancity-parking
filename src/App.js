@@ -15,7 +15,6 @@ class App extends React.Component {
 
   async componentDidMount() {
     const res = await this.apiCall(this.state.defaultArea, 50);
-    console.log("res", res);
     await this.setState({
       searchedResponse: res
     });

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Map.scss";
 // import Marker from "../Marker/Marker";
-import { Map, Marker, InfoWindow, GoogleApiWrapper } from "google-maps-react";
+import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 // constant initial values
 const lat = 49.2827;
 const lng = -123.1207;
@@ -13,7 +13,9 @@ const defaultZoom = 17;
 class MapContainer extends Component {
   state = {
     center: { lat, lng },
-    zoom: defaultZoom
+    zoom: defaultZoom,
+    showingInfoWindow: false,
+    selectedMarker: ""
   };
 
   /**
@@ -41,35 +43,45 @@ class MapContainer extends Component {
     return null;
   }
 
+  onMarkerClick = marker => {
+    console.log("marker", marker);
+    this.setState({
+      selectedMarker: marker.recordid,
+      showingInfoWindow: true
+    });
+  };
   render() {
     const data = this.props.searchedResponse;
-
-    const Markers = data
-      ? data.data.records.map(marker => {
-          return (
-            <Marker
-              position={{ lat: marker.fields.geom.coordinates[1], lng: marker.fields.geom.coordinates[0] }}
-              key={marker.recordid}
-            />
-          );
-        })
-      : null;
+    const Markers = props =>
+      data
+        ? data.data.records.map(marker => {
+            return (
+              <Marker
+                position={{ lat: marker.fields.geom.coordinates[1], lng: marker.fields.geom.coordinates[0] }}
+                key={marker.recordid}
+                onClick={() => this.onMarkerClick(marker)}
+              >
+                {this.state.showingInfoWindow && this.state.selectedMarker === marker.recordid && (
+                  <InfoWindow
+                    position={{ lat: marker.fields.geom.coordinates[1], lng: marker.fields.geom.coordinates[0] }}
+                  >
+                    <div>{marker.recordid}</div>
+                  </InfoWindow>
+                )}
+              </Marker>
+            );
+          })
+        : null;
     return (
-      <div className="map">
-        <Map google={this.props.google} center={this.state.center} zoom={this.state.zoom}>
-          {Markers}
-
-          <InfoWindow onClose={this.onInfoWindowClose}>
-            <div>
-              <h1></h1>
-            </div>
-          </InfoWindow>
-        </Map>
+      <div className="map-container">
+        <LoadScript googleMapsApiKey="AIzaSyBlh-6hh0jO_I2c7FWR-vNzFsDqebeaL9I">
+          <GoogleMap id="map" center={this.state.center} zoom={this.state.zoom}>
+            <Markers />
+          </GoogleMap>
+        </LoadScript>
       </div>
     );
   }
 }
 
-export default GoogleApiWrapper({
-  apiKey: process.env.REACT_APP_GOOGLE_KEY
-})(MapContainer);
+export default MapContainer;
