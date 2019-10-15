@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import "./Map.scss";
 // import Marker from "../Marker/Marker";
-import { Map, Marker, InfoWindow, GoogleApiWrapper } from "google-maps-react";
-import { GoogleMap, LoadScript } from "@react-google-maps/api";
+import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 // constant initial values
 const lat = 49.2827;
 const lng = -123.1207;
@@ -16,8 +15,7 @@ class MapContainer extends Component {
     center: { lat, lng },
     zoom: defaultZoom,
     showingInfoWindow: false,
-    activeMarker: {},
-    selectedPlace: {}
+    selectedMarker: ""
   };
 
   /**
@@ -45,36 +43,31 @@ class MapContainer extends Component {
     return null;
   }
 
-  onMarkerClick = (props, marker) => {
-    console.log("onMarkerClick", marker);
+  onMarkerClick = marker => {
+    console.log("marker", marker);
     this.setState({
-      showingInfoWindow: true,
-      activeMarker: marker
+      selectedMarker: marker.recordid,
+      showingInfoWindow: true
     });
-    console.log("this.state.activeMarker", this.state.activeMarker);
   };
-  windowHasOpened = e => {
-    console.log("e", e);
-  };
-
   render() {
     const data = this.props.searchedResponse;
-    console.log("this.state.showingInfoWindow", this.state.showingInfoWindow);
     const Markers = props =>
       data
         ? data.data.records.map(marker => {
             return (
               <Marker
-                {...props}
                 position={{ lat: marker.fields.geom.coordinates[1], lng: marker.fields.geom.coordinates[0] }}
                 key={marker.recordid}
-                onClick={this.onMarkerClick}
+                onClick={() => this.onMarkerClick(marker)}
               >
-                <InfoWindow {...props} visible={this.state.showingInfoWindow} marker={this.state.activeMarker}>
-                  <div>
-                    <h1>hi</h1>
-                  </div>
-                </InfoWindow>
+                {this.state.showingInfoWindow && this.state.selectedMarker === marker.recordid && (
+                  <InfoWindow
+                    position={{ lat: marker.fields.geom.coordinates[1], lng: marker.fields.geom.coordinates[0] }}
+                  >
+                    <div>{marker.recordid}</div>
+                  </InfoWindow>
+                )}
               </Marker>
             );
           })
@@ -83,13 +76,9 @@ class MapContainer extends Component {
       <div className="map-container">
         <LoadScript googleMapsApiKey="AIzaSyBlh-6hh0jO_I2c7FWR-vNzFsDqebeaL9I">
           <GoogleMap id="map" center={this.state.center} zoom={this.state.zoom}>
-            ...Your map components
+            <Markers />
           </GoogleMap>
         </LoadScript>
-
-        {/* <Map google={this.props.google} center={this.state.center} zoom={this.state.zoom}>
-          <Markers {...this.props} />
-        </Map> */}
       </div>
     );
   }
