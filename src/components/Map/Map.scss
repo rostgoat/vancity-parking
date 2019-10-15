@@ -1,8 +1,18 @@
-.map {
+.map-container {
   position: fixed;
   height: 100%;
   border: 3px;
   box-sizing: border-box;
   left: 0;
   width: 80%;
+
+  #map {
+    position: static !important;
+  }
+}
+
+.marker {
+  background-color: aliceblue;
+  width: 50px;
+  position: absolute;
 }

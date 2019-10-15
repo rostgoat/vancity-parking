@@ -5,7 +5,6 @@ import { FaCcVisa, FaCoins } from "react-icons/fa";
 class SideBar extends Component {
   render() {
     const data = this.props.searchedResponse;
-    console.log("data", data);
     const sidebarItems = data
       ? data.data.records.map(item => (
           <div className="sidebar-item" key={item.recordid}>
