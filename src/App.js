@@ -31,6 +31,9 @@ class App extends React.Component {
       `https://opendata.vancouver.ca/api/records/1.0/search/?dataset=parking-meters&rows=${rowsAmt}&facet=geo_local_area&refine.geo_local_area=${area}`
     );
   }
+  onSendMarkerInfoToParent = e => {
+    console.log("parent");
+  };
 
   /**
    * Function handles form submit in Search component and passes data to Map component
@@ -64,7 +67,7 @@ class App extends React.Component {
           handleSubmit={this.handleSubmit}
           onSearchedInputChange={this.onSearchedInputChange}
         />
-        <Map searchedResponse={this.state.searchedResponse} />
+        <Map searchedResponse={this.state.searchedResponse} onSendMarkerInfoToParen={this.onSendMarkerInfoToParent} />
         <SideBar searchedResponse={this.state.searchedResponse}></SideBar>
       </div>
     );
