@@ -69,18 +69,18 @@ class MapContainer extends Component {
                 onClick={e => this.onMarkerClick(e, marker)}
                 icon={{
                   path:
-                    "M12.75 0l-2.25 2.25 2.25 2.25-5.25 6h-5.25l4.125 4.125-6.375 8.452v0.923h0.923l8.452-6.375 4.125 4.125v-5.25l6-5.25 2.25 2.25 2.25-2.25-11.25-11.25zM10.5 12.75l-1.5-1.5 5.25-5.25 1.5 1.5-5.25 5.25z",
+                    "M38.853,5.324L38.853,5.324c-7.098-7.098-18.607-7.098-25.706,0h0  C6.751,11.72,6.031,23.763,11.459,31L26,52l14.541-21C45.969,23.763,45.249,11.72,38.853,5.324z M26.177,24c-3.314,0-6-2.686-6-6  s2.686-6,6-6s6,2.686,6,6S29.491,24,26.177,24z",
                   fillColor: "#0000ff",
                   fillOpacity: 1.0,
                   strokeWeight: 0,
-                  scale: 1.25
+                  scale: 0.55
                 }}
               >
                 {this.state.showingInfoWindow && this.state.selectedMarker === marker.recordid && (
                   <InfoWindow
                     className="info-window"
                     position={{ lat: marker.fields.geom.coordinates[1], lng: marker.fields.geom.coordinates[0] }}
-                    onSendMarkerInfoToParent={this.onSendMarkerInfoToParent}
+                    onSendMarkerInfoToParent={e => this.onSendMarkerInfoToParent(e)}
                   >
                     <div>{marker.recordid}</div>
                   </InfoWindow>
