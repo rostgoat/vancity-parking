@@ -103,37 +103,35 @@ class MapContainer extends Component {
   }
 
   /**
-   * Display marker info window on click
+   * Display marker info window on hover
    */
-  onMarkerClick = (e, marker) => {
-    console.log("marker", marker);
+  onMarkerHover = (e, marker) => {
     this.setState({
       selectedMarker: marker.recordid,
       showingInfoWindow: true
     });
+    this.onSendMarkerInfoToParent();
   };
 
   /**
    * Display marker info window on hover
    */
-  onMarkerHover = (e, marker) => {
-    console.log("hover", marker);
+  onMarkerUnHover = (e, marker) => {
     this.setState({
       selectedMarker: marker.recordid,
-      showingInfoWindow: true
+      showingInfoWindow: false
     });
+    this.onSendMarkerInfoToParent();
   };
 
-  /**
-   * TODO:  implement this later - send event to search bar
-   */
-  onSendMarkerInfoToParent = e => {
-    console.log("g");
-    this.props.onSendMarkerInfoToParent(e);
+  onSendMarkerInfoToParent = (e, marker) => {
+    console.log("child");
+    this.props.onSendMarkerInfoToParent(e, marker);
   };
 
   render() {
     const data = this.props.searchedResponse;
+    console.log("data", data);
     const Markers = props =>
       data
         ? data.data.records.map(marker => {
@@ -143,19 +141,19 @@ class MapContainer extends Component {
                 key={marker.recordid}
                 onClick={e => this.onMarkerClick(e, marker)}
                 onMouseOver={e => this.onMarkerHover(e, marker)}
-                icon={{
-                  path: iconPath,
-                  fillColor: `rgb(109, 162, 247)`,
-                  fillOpacity: 1.0,
-                  strokeWeight: 0,
-                  scale: 0.55
-                }}
+                onMouseOut={e => this.onMarkerUnHover(e, marker)}
+                // icon={{
+                //   path: iconPath,
+                //   fillColor: `rgb(109, 162, 247)`,
+                //   fillOpacity: 1.0,
+                //   strokeWeight: 0,
+                //   scale: 0.55
+                // }}
               >
                 {this.state.showingInfoWindow && this.state.selectedMarker === marker.recordid && (
                   <InfoWindow
                     className="info-window"
                     position={{ lat: marker.fields.geom.coordinates[1], lng: marker.fields.geom.coordinates[0] }}
-                    onSendMarkerInfoToParent={e => this.onSendMarkerInfoToParent(e)}
                   >
                     <div>{rateTimeCalc(marker)}</div>
                   </InfoWindow>
