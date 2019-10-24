@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component, PureComponent } from "react";
+import update from "immutability-helper";
 import "./Map.scss";
 // import Marker from "../Marker/Marker";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
@@ -66,6 +67,24 @@ const rateTimeCalc = marker => {
     }
   }
 };
+
+class Markers extends PureComponent {
+  render() {
+    return this.props.markers
+      ? this.props.markers.map(marker => {
+          return (
+            <Marker
+              position={{ lat: marker.fields.geom.coordinates[1], lng: marker.fields.geom.coordinates[0] }}
+              key={marker.recordid}
+              onClick={this.props.onMarkerClick}
+              onMouseOver={this.onMarkerHover}
+              {...this.props}
+            />
+          );
+        })
+      : null;
+  }
+}
 /**
  * Map Class that renders the Google Map
  */
@@ -74,7 +93,8 @@ class MapContainer extends Component {
     center: { lat, lng },
     zoom: defaultZoom,
     showingInfoWindow: false,
-    selectedMarker: ""
+    activeMarker: {},
+    selectedPlace: {}
   };
 
   /**
@@ -105,21 +125,12 @@ class MapContainer extends Component {
   /**
    * Display marker info window on hover
    */
-  onMarkerHover = (e, marker) => {
+  onMarkerClick = (props, marker) => {
+    console.log("marker", marker);
     this.setState({
-      selectedMarker: marker.recordid,
-      showingInfoWindow: true
-    });
-    this.onSendMarkerInfoToParent();
-  };
-
-  /**
-   * Display marker info window on hover
-   */
-  onMarkerUnHover = (e, marker) => {
-    this.setState({
-      selectedMarker: marker.recordid,
-      showingInfoWindow: false
+      activeMarker: marker,
+      showingInfoWindow: true,
+      selectedPlace: props
     });
     this.onSendMarkerInfoToParent();
   };
@@ -131,42 +142,18 @@ class MapContainer extends Component {
 
   render() {
     const data = this.props.searchedResponse;
-    console.log("data", data);
-    const Markers = props =>
-      data
-        ? data.data.records.map(marker => {
-            return (
-              <Marker
-                position={{ lat: marker.fields.geom.coordinates[1], lng: marker.fields.geom.coordinates[0] }}
-                key={marker.recordid}
-                onClick={e => this.onMarkerClick(e, marker)}
-                onMouseOver={e => this.onMarkerHover(e, marker)}
-                onMouseOut={e => this.onMarkerUnHover(e, marker)}
-                // icon={{
-                //   path: iconPath,
-                //   fillColor: `rgb(109, 162, 247)`,
-                //   fillOpacity: 1.0,
-                //   strokeWeight: 0,
-                //   scale: 0.55
-                // }}
-              >
-                {this.state.showingInfoWindow && this.state.selectedMarker === marker.recordid && (
-                  <InfoWindow
-                    className="info-window"
-                    position={{ lat: marker.fields.geom.coordinates[1], lng: marker.fields.geom.coordinates[0] }}
-                  >
-                    <div>{rateTimeCalc(marker)}</div>
-                  </InfoWindow>
-                )}
-              </Marker>
-            );
-          })
-        : null;
+    console.log("this.state.activeMarker", this.state.activeMarker);
     return (
       <div className="map-container">
         <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_KEY}>
           <GoogleMap id="map" center={this.state.center} zoom={this.state.zoom}>
-            <Markers />
+            <Markers
+              markers={data && data.data && data.data.records ? data.data.records : null}
+              onMarkerClick={this.onMarkerClick}
+            />
+            {/* <InfoWindow visible={this.state.showingInfoWindow}>
+              <div>{rateTimeCalc(this.state.activeMarker)}</div>
+            </InfoWindow> */}
           </GoogleMap>
         </LoadScript>
       </div>
