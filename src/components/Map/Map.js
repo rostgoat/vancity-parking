@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, PureComponent } from "react";
 import "./Map.scss";
 // import Marker from "../Marker/Marker";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
+import _ from "lodash";
 import "../Marker/Marker.scss";
 // constant initial values
 const lat = 49.2827;
@@ -66,6 +67,24 @@ const rateTimeCalc = marker => {
     }
   }
 };
+
+class Markers extends PureComponent {
+  render() {
+    return this.props.markers
+      ? this.props.markers.map(marker => {
+          return (
+            <Marker
+              position={{ lat: marker.fields.geom.coordinates[1], lng: marker.fields.geom.coordinates[0] }}
+              key={marker.recordid}
+              onClick={e => this.props.onMarkerClick(e, marker)}
+              onMouseOver={this.onMarkerHover}
+              {...this.props}
+            />
+          );
+        })
+      : null;
+  }
+}
 /**
  * Map Class that renders the Google Map
  */
@@ -74,7 +93,8 @@ class MapContainer extends Component {
     center: { lat, lng },
     zoom: defaultZoom,
     showingInfoWindow: false,
-    selectedMarker: ""
+    activeMarker: {},
+    selectedPlace: {}
   };
 
   /**
@@ -103,72 +123,49 @@ class MapContainer extends Component {
   }
 
   /**
-   * Display marker info window on click
-   */
-  onMarkerClick = (e, marker) => {
-    console.log("marker", marker);
-    this.setState({
-      selectedMarker: marker.recordid,
-      showingInfoWindow: true
-    });
-  };
-
-  /**
    * Display marker info window on hover
    */
-  onMarkerHover = (e, marker) => {
-    console.log("hover", marker);
+  onMarkerClick = (props, marker) => {
+    console.log("marker child", marker);
     this.setState({
-      selectedMarker: marker.recordid,
-      showingInfoWindow: true
+      activeMarker: marker,
+      showingInfoWindow: true,
+      selectedPlace: props
     });
+    this.onSendMarkerInfoToParent();
   };
 
-  /**
-   * TODO:  implement this later - send event to search bar
-   */
-  onSendMarkerInfoToParent = e => {
-    console.log("g");
-    this.props.onSendMarkerInfoToParent(e);
+  onSendMarkerInfoToParent = (e, marker) => {
+    console.log("child");
+    this.props.onSendMarkerInfoToParent(e, marker);
   };
+
+  onInfoWindowClose = () =>
+    this.setState({
+      activeMarker: null,
+      showingInfoWindow: false
+    });
 
   render() {
     const data = this.props.searchedResponse;
-    const Markers = props =>
-      data
-        ? data.data.records.map(marker => {
-            return (
-              <Marker
-                position={{ lat: marker.fields.geom.coordinates[1], lng: marker.fields.geom.coordinates[0] }}
-                key={marker.recordid}
-                onClick={e => this.onMarkerClick(e, marker)}
-                onMouseOver={e => this.onMarkerHover(e, marker)}
-                icon={{
-                  path: iconPath,
-                  fillColor: `rgb(109, 162, 247)`,
-                  fillOpacity: 1.0,
-                  strokeWeight: 0,
-                  scale: 0.55
-                }}
-              >
-                {this.state.showingInfoWindow && this.state.selectedMarker === marker.recordid && (
-                  <InfoWindow
-                    className="info-window"
-                    position={{ lat: marker.fields.geom.coordinates[1], lng: marker.fields.geom.coordinates[0] }}
-                    onSendMarkerInfoToParent={e => this.onSendMarkerInfoToParent(e)}
-                  >
-                    <div>{rateTimeCalc(marker)}</div>
-                  </InfoWindow>
-                )}
-              </Marker>
-            );
-          })
-        : null;
+    console.log("this.state.activeMarker", this.state.activeMarker);
     return (
       <div className="map-container">
         <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_KEY}>
           <GoogleMap id="map" center={this.state.center} zoom={this.state.zoom}>
-            <Markers />
+            <Markers
+              markers={data && data.data && data.data.records ? data.data.records : null}
+              onMarkerClick={this.onMarkerClick}
+            />
+            {this.state.showingInfoWindow && (
+              <InfoWindow
+                marker={this.state.activeMarker}
+                onClose={this.onInfoWindowClose}
+                anchor={!_.isEmpty(this.state.activeMarker) ? this.state.activeMarker.fields.geom.coordinates : null}
+              >
+                <div>{!_.isEmpty(this.state.activeMarker) ? rateTimeCalc(this.state.activeMarker) : null}</div>
+              </InfoWindow>
+            )}
           </GoogleMap>
         </LoadScript>
       </div>

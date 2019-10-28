@@ -5,6 +5,7 @@ import Search from "./components/Search/Search";
 import SideBar from "./components/SideBar/SideBar";
 import axios from "axios";
 import areas from "./data/areas";
+import { AppContextProvider } from "./AppContext";
 
 class App extends React.Component {
   state = {
@@ -32,7 +33,7 @@ class App extends React.Component {
     );
   }
   onSendMarkerInfoToParent = e => {
-    console.log("parent");
+    console.log("parent", e);
   };
 
   /**
@@ -62,13 +63,18 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Search
-          searchedValue={this.state.searchedValue}
-          handleSubmit={this.handleSubmit}
-          onSearchedInputChange={this.onSearchedInputChange}
-        />
-        <Map searchedResponse={this.state.searchedResponse} onSendMarkerInfoToParen={this.onSendMarkerInfoToParent} />
-        <SideBar searchedResponse={this.state.searchedResponse}></SideBar>
+        <AppContextProvider>
+          <Search
+            searchedValue={this.state.searchedValue}
+            handleSubmit={this.handleSubmit}
+            onSearchedInputChange={this.onSearchedInputChange}
+          />
+          <Map
+            searchedResponse={this.state.searchedResponse}
+            onSendMarkerInfoToParent={this.onSendMarkerInfoToParent}
+          />
+          <SideBar searchedResponse={this.state.searchedResponse}></SideBar>
+        </AppContextProvider>
       </div>
     );
   }
