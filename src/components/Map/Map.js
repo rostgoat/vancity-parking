@@ -1,8 +1,8 @@
 import React, { Component, PureComponent } from "react";
-import update from "immutability-helper";
 import "./Map.scss";
 // import Marker from "../Marker/Marker";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
+import _ from "lodash";
 import "../Marker/Marker.scss";
 // constant initial values
 const lat = 49.2827;
@@ -76,7 +76,7 @@ class Markers extends PureComponent {
             <Marker
               position={{ lat: marker.fields.geom.coordinates[1], lng: marker.fields.geom.coordinates[0] }}
               key={marker.recordid}
-              onClick={this.props.onMarkerClick}
+              onClick={e => this.props.onMarkerClick(e, marker)}
               onMouseOver={this.onMarkerHover}
               {...this.props}
             />
@@ -126,7 +126,7 @@ class MapContainer extends Component {
    * Display marker info window on hover
    */
   onMarkerClick = (props, marker) => {
-    console.log("marker", marker);
+    console.log("marker child", marker);
     this.setState({
       activeMarker: marker,
       showingInfoWindow: true,
@@ -140,6 +140,12 @@ class MapContainer extends Component {
     this.props.onSendMarkerInfoToParent(e, marker);
   };
 
+  onInfoWindowClose = () =>
+    this.setState({
+      activeMarker: null,
+      showingInfoWindow: false
+    });
+
   render() {
     const data = this.props.searchedResponse;
     console.log("this.state.activeMarker", this.state.activeMarker);
@@ -151,9 +157,15 @@ class MapContainer extends Component {
               markers={data && data.data && data.data.records ? data.data.records : null}
               onMarkerClick={this.onMarkerClick}
             />
-            {/* <InfoWindow visible={this.state.showingInfoWindow}>
-              <div>{rateTimeCalc(this.state.activeMarker)}</div>
-            </InfoWindow> */}
+            {this.state.showingInfoWindow && (
+              <InfoWindow
+                marker={this.state.activeMarker}
+                onClose={this.onInfoWindowClose}
+                anchor={!_.isEmpty(this.state.activeMarker) ? this.state.activeMarker.fields.geom.coordinates : null}
+              >
+                <div>{!_.isEmpty(this.state.activeMarker) ? rateTimeCalc(this.state.activeMarker) : null}</div>
+              </InfoWindow>
+            )}
           </GoogleMap>
         </LoadScript>
       </div>
