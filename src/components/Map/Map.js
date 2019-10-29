@@ -161,7 +161,10 @@ class MapContainer extends Component {
               <InfoWindow
                 marker={this.state.activeMarker}
                 onClose={this.onInfoWindowClose}
-                anchor={!_.isEmpty(this.state.activeMarker) ? this.state.activeMarker.fields.geom.coordinates : null}
+                position={{
+                  lat: !_.isEmpty(this.state.activeMarker) ? this.state.activeMarker.fields.geom.coordinates[1] : null,
+                  lng: !_.isEmpty(this.state.activeMarker) ? this.state.activeMarker.fields.geom.coordinates[0] : null
+                }}
               >
                 <div>{!_.isEmpty(this.state.activeMarker) ? rateTimeCalc(this.state.activeMarker) : null}</div>
               </InfoWindow>
