@@ -6,6 +6,8 @@ import SideBar from "./components/SideBar/SideBar";
 import axios from "axios";
 import areas from "./data/areas";
 import { Provider } from "react-redux";
+import { createStore } from "redux";
+import store from "./store";
 
 class App extends React.Component {
   state = {
