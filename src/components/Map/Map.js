@@ -126,7 +126,6 @@ class MapContainer extends Component {
    * Display marker info window on hover
    */
   onMarkerClick = (props, marker) => {
-    console.log("marker child", marker);
     this.setState({
       activeMarker: marker,
       showingInfoWindow: true,
@@ -136,7 +135,6 @@ class MapContainer extends Component {
   };
 
   onSendMarkerInfoToParent = (e, marker) => {
-    console.log("child");
     this.props.onSendMarkerInfoToParent(e, marker);
   };
 
@@ -148,7 +146,6 @@ class MapContainer extends Component {
 
   render() {
     const data = this.props.searchedResponse;
-    console.log("this.state.activeMarker", this.state.activeMarker);
     return (
       <div className="map-container">
         <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_KEY}>
