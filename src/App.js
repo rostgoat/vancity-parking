@@ -3,9 +3,13 @@ import "./App.scss";
 import Map from "./components/Map/Map";
 import Search from "./components/Search/Search";
 import SideBar from "./components/SideBar/SideBar";
-import axios from "axios";
 import areas from "./data/areas";
-import { AppContextProvider } from "./AppContext";
+import { fetchAreas } from "./actions/areaActions";
+import { connect } from "react-redux";
+
+const mapStateToProps = state => ({
+  areas: state.areas
+});
 
 class App extends React.Component {
   state = {
@@ -15,23 +19,12 @@ class App extends React.Component {
   };
 
   async componentDidMount() {
-    const res = await this.apiCall(this.state.defaultArea, 50);
+    const areas = await this.props.fetchAreas();
     await this.setState({
-      searchedResponse: res
+      searchedResponse: areas
     });
   }
 
-  /**
-   * Function makes API call to retreive coordinates data for map
-   *
-   * @param {String} area - geographic area
-   * @param {String} rowsAmt - amount of rows to return per area
-   */
-  async apiCall(area, rowsAmt) {
-    return axios.get(
-      `https://opendata.vancouver.ca/api/records/1.0/search/?dataset=parking-meters&rows=${rowsAmt}&facet=geo_local_area&refine.geo_local_area=${area}`
-    );
-  }
   onSendMarkerInfoToParent = e => {
     console.log("parent", e);
   };
@@ -63,20 +56,18 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <AppContextProvider>
-          <Search
-            searchedValue={this.state.searchedValue}
-            handleSubmit={this.handleSubmit}
-            onSearchedInputChange={this.onSearchedInputChange}
-          />
-          <Map
-            searchedResponse={this.state.searchedResponse}
-            onSendMarkerInfoToParent={this.onSendMarkerInfoToParent}
-          />
-          <SideBar searchedResponse={this.state.searchedResponse}></SideBar>
-        </AppContextProvider>
+        <Search
+          searchedValue={this.state.searchedValue}
+          handleSubmit={this.handleSubmit}
+          onSearchedInputChange={this.onSearchedInputChange}
+        />
+        <Map searchedResponse={this.state.searchedResponse} onSendMarkerInfoToParent={this.onSendMarkerInfoToParent} />
+        <SideBar searchedResponse={this.state.searchedResponse} />
       </div>
     );
   }
 }
-export default App;
+export default connect(
+  mapStateToProps,
+  { fetchAreas }
+)(App);
