@@ -2,7 +2,6 @@ import { FETCH_AREAS } from "../actions/types";
 
 const initialState = {
   areas: [],
-  item: {}
 };
 
 export default function(state = initialState, action) {

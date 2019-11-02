@@ -36,9 +36,9 @@ class App extends React.Component {
     e.preventDefault();
     areas.forEach(async area => {
       if (area.includes(this.state.searchedValue)) {
-        const res = await this.apiCall(area, 50);
+        const areas = await this.props.fetchAreas(area);
         this.setState({
-          searchedResponse: res
+          searchedResponse: areas
         });
       }
     });
