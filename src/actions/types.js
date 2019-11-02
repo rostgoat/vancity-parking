@@ -1,1 +1,3 @@
 export const FETCH_AREAS = "FETCH_AREAS";
+
+export const SET_SEARCHED_RESPONSE = "SET_SEARCHED_RESPONSE";
