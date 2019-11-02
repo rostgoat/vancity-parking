@@ -19,10 +19,10 @@ class App extends React.Component {
   };
 
   async componentDidMount() {
-    await this.props.fetchAreas();
-    // await this.setState({
-    //   searchedResponse: res
-    // });
+    const areas = await this.props.fetchAreas();
+    await this.setState({
+      searchedResponse: areas
+    });
   }
 
   onSendMarkerInfoToParent = e => {

@@ -1,4 +1,4 @@
-import { FETCH_AREAS, NEW_POST } from "./types";
+import { FETCH_AREAS } from "./types";
 import axios from "axios";
 
 export const fetchAreas = () => async dispatch => {
@@ -7,7 +7,7 @@ export const fetchAreas = () => async dispatch => {
       type: FETCH_AREAS,
       areas
     });
-    // return areas;
+    return areas;
   };
 
   try {
