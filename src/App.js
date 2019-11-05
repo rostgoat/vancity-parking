@@ -16,12 +16,12 @@ const mapStateToProps = state => ({
 class App extends React.Component {
   state = {
     searchedValue: "",
-    searchedResponse: null,
+    searchedResponse: null
   };
 
   async componentDidMount() {
     const areas = await this.props.fetchAreas();
-    await this.props.setSearchResponse(areas)
+    await this.props.setSearchResponse(areas);
     // await this.setState({
     //   searchedResponse: areas
     // });
@@ -56,6 +56,7 @@ class App extends React.Component {
   };
 
   render() {
+    console.log("this.props App", this.props);
     return (
       <div>
         <Search
@@ -63,7 +64,7 @@ class App extends React.Component {
           handleSubmit={this.handleSubmit}
           onSearchedInputChange={this.onSearchedInputChange}
         />
-        <Map searchedResponse={this.state.searchedResponse} onSendMarkerInfoToParent={this.onSendMarkerInfoToParent} />
+        <Map onSendMarkerInfoToParent={this.onSendMarkerInfoToParent} />
         <SideBar searchedResponse={this.state.searchedResponse} />
       </div>
     );

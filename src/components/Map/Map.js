@@ -1,5 +1,6 @@
 import React, { Component, PureComponent } from "react";
 import "./Map.scss";
+import { connect } from "react-redux";
 // import Marker from "../Marker/Marker";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import _ from "lodash";
@@ -8,8 +9,6 @@ import "../Marker/Marker.scss";
 const lat = 49.2827;
 const lng = -123.1207;
 const defaultZoom = 17;
-const iconPath =
-  "M38.853,5.324L38.853,5.324c-7.098-7.098-18.607-7.098-25.706,0h0  C6.751,11.72,6.031,23.763,11.459,31L26,52l14.541-21C45.969,23.763,45.249,11.72,38.853,5.324z M26.177,24c-3.314,0-6-2.686-6-6  s2.686-6,6-6s6,2.686,6,6S29.491,24,26.177,24z";
 
 /**
  * Function returns rate of marker based on current day and time
@@ -145,13 +144,15 @@ class MapContainer extends Component {
     });
 
   render() {
-    const data = this.props.searchedResponse;
+    const { areas } = this.props.areas;
+    console.log("areas Map", areas.data);
+    console.log("this.state.center", this.state.center);
     return (
       <div className="map-container">
         <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_KEY}>
           <GoogleMap id="map" center={this.state.center} zoom={this.state.zoom}>
             <Markers
-              markers={data && data.data && data.data.records ? data.data.records : null}
+              markers={areas && areas.data && areas.data.records ? areas.data.records : null}
               onMarkerClick={this.onMarkerClick}
             />
             {this.state.showingInfoWindow && (
@@ -172,5 +173,10 @@ class MapContainer extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    areas: state.areas
+  };
+};
 
-export default MapContainer;
+export default connect(mapStateToProps)(MapContainer);
