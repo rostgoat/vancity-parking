@@ -1,6 +1,6 @@
 import { SET_MAP_CENTER, SET_MAP_ZOOM } from "./types";
 
-export const setMapCenter = (center = null) => async dispatch => {
+export const setMapCenter = (center = null) => dispatch => {
   try {
     dispatch({
       type: SET_MAP_CENTER,
@@ -11,11 +11,10 @@ export const setMapCenter = (center = null) => async dispatch => {
   }
 };
 
-export const setMapZoom = (zoom = null) => async dispatch => {
+export const setMapZoom = () => dispatch => {
   try {
     dispatch({
-      type: SET_MAP_ZOOM,
-      zoom
+      type: SET_MAP_ZOOM
     });
   } catch (error) {
     return error;

@@ -22,9 +22,6 @@ class App extends React.Component {
   async componentDidMount() {
     const areas = await this.props.fetchAreas();
     await this.props.setSearchResponse(areas);
-    // await this.setState({
-    //   searchedResponse: areas
-    // });
   }
 
   onSendMarkerInfoToParent = e => {
@@ -56,7 +53,6 @@ class App extends React.Component {
   };
 
   render() {
-    console.log("this.props App", this.props);
     return (
       <div>
         <Search
