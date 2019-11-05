@@ -5,24 +5,23 @@ import Search from "./components/Search/Search";
 import SideBar from "./components/SideBar/SideBar";
 import areas from "./data/areas";
 import { fetchAreas } from "./actions/areaActions";
+import { setSearchResponse } from "./actions/searchActions";
 import { connect } from "react-redux";
 
 const mapStateToProps = state => ({
-  areas: state.areas
+  areas: state.areas,
+  searchedResponse: state.searchResponse
 });
 
 class App extends React.Component {
   state = {
     searchedValue: "",
-    searchedResponse: null,
-    defaultArea: "Hastings-Sunrise"
+    searchedResponse: null
   };
 
   async componentDidMount() {
     const areas = await this.props.fetchAreas();
-    await this.setState({
-      searchedResponse: areas
-    });
+    await this.props.setSearchResponse(areas);
   }
 
   onSendMarkerInfoToParent = e => {
@@ -36,9 +35,9 @@ class App extends React.Component {
     e.preventDefault();
     areas.forEach(async area => {
       if (area.includes(this.state.searchedValue)) {
-        const res = await this.apiCall(area, 50);
+        const areas = await this.props.fetchAreas(area);
         this.setState({
-          searchedResponse: res
+          searchedResponse: areas
         });
       }
     });
@@ -61,7 +60,7 @@ class App extends React.Component {
           handleSubmit={this.handleSubmit}
           onSearchedInputChange={this.onSearchedInputChange}
         />
-        <Map searchedResponse={this.state.searchedResponse} onSendMarkerInfoToParent={this.onSendMarkerInfoToParent} />
+        <Map onSendMarkerInfoToParent={this.onSendMarkerInfoToParent} />
         <SideBar searchedResponse={this.state.searchedResponse} />
       </div>
     );
@@ -69,5 +68,5 @@ class App extends React.Component {
 }
 export default connect(
   mapStateToProps,
-  { fetchAreas }
+  { fetchAreas, setSearchResponse }
 )(App);

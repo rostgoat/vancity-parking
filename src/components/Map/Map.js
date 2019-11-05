@@ -1,16 +1,11 @@
 import React, { Component, PureComponent } from "react";
 import "./Map.scss";
+import { connect } from "react-redux";
 // import Marker from "../Marker/Marker";
 import { GoogleMap, LoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import _ from "lodash";
 import "../Marker/Marker.scss";
-// constant initial values
-const lat = 49.2827;
-const lng = -123.1207;
-const defaultZoom = 17;
-const iconPath =
-  "M38.853,5.324L38.853,5.324c-7.098-7.098-18.607-7.098-25.706,0h0  C6.751,11.72,6.031,23.763,11.459,31L26,52l14.541-21C45.969,23.763,45.249,11.72,38.853,5.324z M26.177,24c-3.314,0-6-2.686-6-6  s2.686-6,6-6s6,2.686,6,6S29.491,24,26.177,24z";
-
+import { setMapZoom, setMapCenter } from "../../actions/mapActions";
 /**
  * Function returns rate of marker based on current day and time
  *
@@ -90,8 +85,6 @@ class Markers extends PureComponent {
  */
 class MapContainer extends Component {
   state = {
-    center: { lat, lng },
-    zoom: defaultZoom,
     showingInfoWindow: false,
     activeMarker: {},
     selectedPlace: {}
@@ -103,24 +96,24 @@ class MapContainer extends Component {
    * @param { Object } props
    * @param { Object } state
    */
-  static getDerivedStateFromProps(props, state) {
-    const oldCenter = state.center;
+  // static getDerivedStateFromProps(props, state) {
+  //   const oldCenter = state.center;
+  //   console.log("state", state);
+  //   if (props.searchedResponse && props.searchedResponse.data.records.length > 0) {
+  //     const newCenter = props.searchedResponse.data.records[0].fields.geom.coordinates;
+  //     const newZoom = state.zoom;
+  //     const [newLng, newLat] = [...newCenter];
+  //     const { lat, lng } = oldCenter;
 
-    if (props.searchedResponse && props.searchedResponse.data.records.length > 0) {
-      const newCenter = props.searchedResponse.data.records[0].fields.geom.coordinates;
-      const newZoom = state.zoom;
-      const [newLng, newLat] = [...newCenter];
-      const { lat, lng } = oldCenter;
-
-      if (lat !== newLat && lng !== newLng) {
-        return {
-          center: { lat: newLat, lng: newLng },
-          zoom: newZoom
-        };
-      }
-    }
-    return null;
-  }
+  //     if (lat !== newLat && lng !== newLng) {
+  //       return {
+  //         center: { lat: newLat, lng: newLng },
+  //         zoom: newZoom
+  //       };
+  //     }
+  //   }
+  //   return null;
+  // }
 
   /**
    * Display marker info window on hover
@@ -145,13 +138,20 @@ class MapContainer extends Component {
     });
 
   render() {
-    const data = this.props.searchedResponse;
+    const { areas } = this.props.areas;
+    const { center, zoom } = this.props.map;
+
+    if (areas && areas.data && areas.data.records) {
+      const newCenter = areas.data.records[0].fields.geom.coordinates;
+      const [newLng, newLat] = [...newCenter];
+      this.props.setMapCenter({ lat: newLat, lng: newLng });
+    }
     return (
       <div className="map-container">
         <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_KEY}>
-          <GoogleMap id="map" center={this.state.center} zoom={this.state.zoom}>
+          <GoogleMap id="map" center={center} zoom={zoom}>
             <Markers
-              markers={data && data.data && data.data.records ? data.data.records : null}
+              markers={areas && areas.data && areas.data.records ? areas.data.records : null}
               onMarkerClick={this.onMarkerClick}
             />
             {this.state.showingInfoWindow && (
@@ -172,5 +172,14 @@ class MapContainer extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    areas: state.areas,
+    map: state.mapReducer
+  };
+};
 
-export default MapContainer;
+export default connect(
+  mapStateToProps,
+  { setMapCenter, setMapZoom }
+)(MapContainer);

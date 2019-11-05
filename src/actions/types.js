@@ -1,1 +1,6 @@
 export const FETCH_AREAS = "FETCH_AREAS";
+
+export const SET_SEARCHED_RESPONSE = "SET_SEARCHED_RESPONSE";
+
+export const SET_MAP_CENTER = "SET_MAP_CENTER";
+export const SET_MAP_ZOOM = "SET_MAP_ZOOM";

@@ -1,15 +1,15 @@
-import { FETCH_AREAS } from "../actions/types";
+import { SET_SEARCHED_RESPONSE } from "../actions/types";
 
 const initialState = {
-  areas: [],
+  searchResponse: "",
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case FETCH_AREAS:
+    case SET_SEARCHED_RESPONSE:
       return {
         ...state,
-        areas: action.areas
+        searchResponse: action.searchResponse
       };
     default:
       return state;
