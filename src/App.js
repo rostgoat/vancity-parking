@@ -4,13 +4,11 @@ import Map from "./components/Map/Map";
 import Search from "./components/Search/Search";
 import SideBar from "./components/SideBar/SideBar";
 import { fetchAreas } from "./actions/areaActions";
-import { setSearchResponse } from "./actions/searchActions";
 import { connect } from "react-redux";
 
 class App extends React.Component {
   async componentDidMount() {
-    const areas = await this.props.fetchAreas();
-    await this.props.setSearchResponse(areas);
+    await this.props.fetchAreas();
   }
 
   render() {
@@ -31,5 +29,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { fetchAreas, setSearchResponse }
+  { fetchAreas }
 )(App);
