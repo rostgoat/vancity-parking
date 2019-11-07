@@ -2,26 +2,33 @@ import React, { Component } from "react";
 import { Form, InputGroup } from "react-bootstrap";
 import { connect } from "react-redux";
 import "./Search.scss";
+import areas from "../../data/areas";
+import { fetchAreas } from "../../actions/areaActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 class Search extends Component {
   state = {
-    searchTerm: ""
+    searchedValue: ""
   };
 
+  /**
+   * Function handles form submit in Search component and passes data to Map component
+   */
   handleSubmit = e => {
-    this.props.handleSubmit(e);
+    e.preventDefault();
+    areas.forEach(async area => {
+      if (area.includes(this.state.searchedValue)) {
+        await this.props.fetchAreas(area);
+      }
+    });
   };
 
+  /**
+   * Search event handler
+   */
   handleSearch = e => {
-    this.setState({ searchTerm: e.target.value });
-  };
-
-  handleKeyPress = e => {
-    if (e.key === "Enter") {
-      this.props.onSearchedInputChange(this.state.searchTerm);
-    }
+    this.setState({ searchedValue: e.target.value });
   };
 
   render() {
@@ -37,10 +44,9 @@ class Search extends Component {
                 className="search-input"
                 type="text"
                 placeholder="Enter street or area..."
-                value={this.state.searchTerm}
+                defaultValue={this.state.searchedValue}
                 name="search"
                 onChange={this.handleSearch}
-                onKeyPress={this.handleKeyPress.bind(this)}
               />
             </InputGroup>
           </Form.Group>
@@ -56,4 +62,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Search);
+export default connect(
+  mapStateToProps,
+  { fetchAreas }
+)(Search);
