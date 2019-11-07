@@ -61,7 +61,7 @@ class App extends React.Component {
           onSearchedInputChange={this.onSearchedInputChange}
         />
         <Map onSendMarkerInfoToParent={this.onSendMarkerInfoToParent} />
-        <SideBar searchedResponse={this.state.searchedResponse} />
+        <SideBar />
       </div>
     );
   }
