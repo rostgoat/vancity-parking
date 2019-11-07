@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import "./Search.scss";
 import areas from "../../data/areas";
 import { fetchAreas } from "../../actions/areaActions";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
@@ -18,7 +17,6 @@ class Search extends Component {
    */
   handleSubmit = e => {
     e.preventDefault();
-    console.log("this.state.searchedValue", this.state.searchedValue);
     areas.forEach(async area => {
       if (area.includes(this.state.searchedValue)) {
         await this.props.fetchAreas(area);
@@ -26,16 +24,11 @@ class Search extends Component {
     });
   };
 
+  /**
+   * Search event handler
+   */
   handleSearch = e => {
     this.setState({ searchedValue: e.target.value });
-  };
-
-  handleKeyPress = (e, searchedValue) => {
-    if (e.key === "Enter") {
-      this.setState({
-        searchedValue: searchedValue
-      });
-    }
   };
 
   render() {
@@ -54,7 +47,6 @@ class Search extends Component {
                 defaultValue={this.state.searchedValue}
                 name="search"
                 onChange={this.handleSearch}
-                onKeyPress={this.handleKeyPress.bind(this)}
               />
             </InputGroup>
           </Form.Group>
