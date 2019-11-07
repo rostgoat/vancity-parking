@@ -46,10 +46,6 @@ class MapContainer extends Component {
     this.onSendMarkerInfoToParent();
   };
 
-  onSendMarkerInfoToParent = (e, marker) => {
-    this.props.onSendMarkerInfoToParent(e, marker);
-  };
-
   onInfoWindowClose = () =>
     this.setState({
       activeMarker: null,
