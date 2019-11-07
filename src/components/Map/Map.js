@@ -91,31 +91,6 @@ class MapContainer extends Component {
   };
 
   /**
-   * Method re-centers map whenever new props are passed in
-   *
-   * @param { Object } props
-   * @param { Object } state
-   */
-  // static getDerivedStateFromProps(props, state) {
-  //   const oldCenter = state.center;
-  //   console.log("state", state);
-  //   if (props.searchedResponse && props.searchedResponse.data.records.length > 0) {
-  //     const newCenter = props.searchedResponse.data.records[0].fields.geom.coordinates;
-  //     const newZoom = state.zoom;
-  //     const [newLng, newLat] = [...newCenter];
-  //     const { lat, lng } = oldCenter;
-
-  //     if (lat !== newLat && lng !== newLng) {
-  //       return {
-  //         center: { lat: newLat, lng: newLng },
-  //         zoom: newZoom
-  //       };
-  //     }
-  //   }
-  //   return null;
-  // }
-
-  /**
    * Display marker info window on hover
    */
   onMarkerClick = (props, marker) => {
