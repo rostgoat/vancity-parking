@@ -18,6 +18,9 @@ class SideBar extends Component {
             item = rateTimeCalc(item);
             return (
               <div className="sidebar-item" key={item.recordid}>
+                <div className="sidebar-item__header">
+                  <div className="sidebar-item__header--item">{item.area}</div>
+                </div>
                 <div className="sidebar-item__info">
                   <div className="sidebar-item__info-basic">
                     <div className="sidebar-item__info-basic--left sidebar-item__info-basic--meter">
@@ -37,7 +40,7 @@ class SideBar extends Component {
                 </div>
                 <div className="sidebar-item__footer">
                   <div className="sidebar-item__footer--item">
-                    {item.creditcard ? (
+                    {item.creditcard.includes("Yes") ? (
                       <div>
                         <FaCcVisa size="2em" className="sidebar-item__footer--item-payment" />
                         <FaCoins size="1.5em" className="sidebar-item__footer--item-payment" />

@@ -39,6 +39,7 @@ export const rateTimeCalc = marker => {
         rate_per_hour: fields.r_mf_9a_6p,
         length_of_stay: fields.t_mf_9a_6p,
         day: days[day],
+        area: fields.geo_local_area,
         currentTime,
         creditcard: fields.creditcard,
         pay_phone: fields.pay_phone
@@ -50,6 +51,7 @@ export const rateTimeCalc = marker => {
         rate_per_hour: fields.r_mf_6p_10,
         length_of_stay: fields.t_mf_6p_10,
         day: days[day],
+        area: fields.geo_local_area,
         currentTime,
         creditcard: fields.creditcard,
         pay_phone: fields.pay_phone
@@ -60,6 +62,7 @@ export const rateTimeCalc = marker => {
       return {
         length_of_stay: "Free",
         day: days[day],
+        area: fields.geo_local_area,
         currentTime
       };
     }
@@ -71,6 +74,7 @@ export const rateTimeCalc = marker => {
         rate_per_hour: fields.r_sa_9a_6p,
         length_of_stay: fields.t_sa_9a_6p,
         day: days[day],
+        area: fields.geo_local_area,
         currentTime,
         creditcard: fields.creditcard,
         pay_phone: fields.pay_phone
@@ -82,6 +86,7 @@ export const rateTimeCalc = marker => {
         rate_per_hour: fields.r_sa_6p_10,
         length_of_stay: fields.t_sa_6p_10,
         day: days[day],
+        area: fields.geo_local_area,
         currentTime,
         creditcard: fields.creditcard,
         pay_phone: fields.pay_phone
@@ -92,6 +97,7 @@ export const rateTimeCalc = marker => {
       return {
         length_of_stay: "Free",
         day: days[day],
+        area: fields.geo_local_area,
         currentTime
       };
     }
@@ -103,6 +109,7 @@ export const rateTimeCalc = marker => {
         rate_per_hour: fields.r_su_9a_6p,
         length_of_stay: fields.t_su_9a_6p,
         day: days[day],
+        area: fields.geo_local_area,
         currentTime,
         creditcard: fields.creditcard,
         pay_phone: fields.pay_phone
@@ -114,6 +121,7 @@ export const rateTimeCalc = marker => {
         rate_per_hour: fields.r_su_6p_10,
         length_of_stay: fields.t_su_6p_10,
         day: days[day],
+        area: fields.geo_local_area,
         currentTime,
         creditcard: fields.creditcard,
         pay_phone: fields.pay_phone
@@ -124,6 +132,7 @@ export const rateTimeCalc = marker => {
       return {
         length_of_stay: "Free",
         day: days[day],
+        area: fields.geo_local_area,
         currentTime
       };
     }

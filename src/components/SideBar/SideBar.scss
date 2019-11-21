@@ -7,7 +7,7 @@
   right: 0;
   bottom: 0;
   z-index: 6;
-  width: 300px;
+  width: 15%;
   background-color: $black;
   @include flex-col();
 
@@ -45,7 +45,7 @@
       @include flex-row();
       border-bottom: 1px solid rgb(202, 202, 202);
 
-      height: 83%;
+      height: 70%;
       width: 100%;
 
       &-basic {
@@ -55,6 +55,7 @@
         padding: 1rem;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
 
         &--meter {
           font-size: 1.25rem;
@@ -76,18 +77,24 @@
       }
 
       &-time-rates {
-        display: block;
+        display: flex;
+        flex-direction: column;
         height: 100%;
         width: 65%;
         padding: 0.5rem;
+        align-items: center;
+        justify-content: center;
 
+        &--row:nth-child(1) {
+          font-weight: 700;
+          font-size: 0.8rem;
+        }
         &--row {
           font-size: 0.7rem;
           @include flex-row();
         }
         &--col {
           color: black;
-          padding-left: 0.5rem;
         }
       }
     }
@@ -97,10 +104,19 @@
         font-weight: 700;
         padding: 0.3rem;
         font-size: 0.69rem;
-
         &-payment {
           padding-left: 0.2rem;
         }
+      }
+    }
+
+    &__header {
+      background-color: #4f99e2;
+      text-align: center;
+      font-size: 0.69rem;
+      color: white;
+
+      &--item {
       }
     }
   }
