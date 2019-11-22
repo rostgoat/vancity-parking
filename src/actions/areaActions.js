@@ -1,7 +1,7 @@
 import { FETCH_AREAS } from "./types";
 import axios from "axios";
 
-export const fetchAreas = (area = 'Hastings-Sunrise', rows = 50) => async dispatch => {
+export const fetchAreas = (area = "Hastings-Sunrise", rows = 50) => async dispatch => {
   const onSuccess = areas => {
     dispatch({
       type: FETCH_AREAS,

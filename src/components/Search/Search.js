@@ -62,7 +62,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { fetchAreas }
-)(Search);
+export default connect(mapStateToProps, { fetchAreas })(Search);
