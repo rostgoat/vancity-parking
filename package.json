@@ -15,7 +15,7 @@
     "google-maps-react": "^2.0.2",
     "lodash": "^4.17.15",
     "node-dbf": "^0.4.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "react": "^16.8.4",
     "react-bootstrap": "^1.0.0-beta.12",
     "react-dom": "^16.8.4",
